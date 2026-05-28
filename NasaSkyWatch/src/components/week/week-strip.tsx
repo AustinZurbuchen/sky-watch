@@ -2,7 +2,7 @@ import { Days } from "@/constants/constants";
 import { WeekDay } from "@/types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
-import { DayPill } from "./day-pill";
+import { DayPill } from "../daypill/day-pill";
 
 const ITEM_WIDTH = 68;
 const ITEM_SEPARATOR = 8;

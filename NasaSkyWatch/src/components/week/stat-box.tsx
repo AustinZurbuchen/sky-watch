@@ -1,6 +1,6 @@
 import { ColorValue, StyleSheet } from "react-native";
-import { ThemedText } from "./themed-text";
-import { ThemedView } from "./themed-view";
+import { ThemedText } from "../theme/themed-text";
+import { ThemedView } from "../theme/themed-view";
 import { useTheme } from '@/hooks/use-theme';
 import { ThemeColor } from "@/constants/theme";
 

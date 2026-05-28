@@ -1,7 +1,7 @@
 import { DayPillProps } from "@/types"
 import { Pressable, StyleSheet } from "react-native"
-import { ThemedText } from "./themed-text";
-import { ThemedView } from "./themed-view";
+import { ThemedText } from "../theme/themed-text";
+import { ThemedView } from "../theme/themed-view";
 
 export const DayPill = ({ day, isActive, onPress }: DayPillProps) => {
   return (
