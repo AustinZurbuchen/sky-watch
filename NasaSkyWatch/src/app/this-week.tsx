@@ -5,6 +5,7 @@ import { ThemedView } from '@/components/themed-view';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { MonthAbr } from '@/constants/constants';
 import { ThemedTitle } from '@/components/themed-title';
+import { WeekStrip } from '@/components/week-strip';
 
 export default function ThisWeekScreen() {
   const getDateRange = () => {
@@ -19,6 +20,9 @@ export default function ThisWeekScreen() {
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <ThemedTitle title="Sky Watch" subtitle={getDateRange()} />
+        <View style={styles.weekStrip}>
+          <WeekStrip />
+        </View>
       </SafeAreaView>
     </ThemedView>
   )
@@ -34,8 +38,15 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: Spacing.four,
     alignItems: 'center',
+    justifyContent: 'flex-start',
     gap: Spacing.three,
     paddingBottom: BottomTabInset + Spacing.three,
     maxWidth: MaxContentWidth,
+  },
+  weekStrip: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    height: '10%',
+    width: '100%',
   },
 });
