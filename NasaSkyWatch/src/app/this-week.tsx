@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   flybyContainer: {
-    // backgroundColor: 'blue',
+    height: '65%',
     marginTop: 10,
     width: '100%',
   }

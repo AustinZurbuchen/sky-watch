@@ -17,4 +17,12 @@ export const Asteroids: AsteroidFlyby[] = [
   { id: '1', name: 'test2', missDistanceLD: 1.1, isHazardous: true, closestApproachUtc: '17:15 UTC', diameterMinM: 38, diameterMaxM: 42 },
   { id: '2', name: 'test3', missDistanceLD: 7.8, isHazardous: false, closestApproachUtc: '18:42 UTC', diameterMinM: 20, diameterMaxM: 23 },
   { id: '3', name: 'test4', missDistanceLD: 2.3, isHazardous: true, closestApproachUtc: '21:42 UTC', diameterMinM: 140, diameterMaxM: 142 },
+  { id: '4', name: 'test1', missDistanceLD: 4.2, isHazardous: false, closestApproachUtc: '03:42 UTC', diameterMinM: 14, diameterMaxM: 16 },
+  { id: '5', name: 'test2', missDistanceLD: 1.1, isHazardous: true, closestApproachUtc: '17:15 UTC', diameterMinM: 38, diameterMaxM: 42 },
+  { id: '6', name: 'test3', missDistanceLD: 7.8, isHazardous: false, closestApproachUtc: '18:42 UTC', diameterMinM: 20, diameterMaxM: 23 },
+  { id: '7', name: 'test4', missDistanceLD: 2.3, isHazardous: true, closestApproachUtc: '21:42 UTC', diameterMinM: 140, diameterMaxM: 142 },
+  { id: '8', name: 'test1', missDistanceLD: 4.2, isHazardous: false, closestApproachUtc: '03:42 UTC', diameterMinM: 14, diameterMaxM: 16 },
+  { id: '9', name: 'test2', missDistanceLD: 1.1, isHazardous: true, closestApproachUtc: '17:15 UTC', diameterMinM: 38, diameterMaxM: 42 },
+  { id: '10', name: 'test3', missDistanceLD: 7.8, isHazardous: false, closestApproachUtc: '18:42 UTC', diameterMinM: 20, diameterMaxM: 23 },
+  { id: '11', name: 'test4', missDistanceLD: 2.3, isHazardous: true, closestApproachUtc: '21:42 UTC', diameterMinM: 140, diameterMaxM: 142 },
 ]

@@ -47,6 +47,7 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
   },
   container: {
-
+    height: '95%',
+    marginTop: 10,
   }
 })
