@@ -18,7 +18,6 @@ export function ThemedTitle({title, subtitle} : ThemedTitleProps) {
 
 const styles = StyleSheet.create({
   contentTitle: {
-    height: '7%',
     width: '100%',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
