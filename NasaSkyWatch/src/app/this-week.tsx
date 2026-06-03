@@ -7,6 +7,7 @@ import { MonthAbr } from '@/constants/constants';
 import { ThemedTitle } from '@/components/theme/themed-title';
 import { WeekStrip } from '@/components/week/week-strip';
 import { WeekStats } from '@/components/week/week-stats';
+import { FlyBy } from '@/components/flyby/flyby';
 
 export default function ThisWeekScreen() {
   const getDateRange = () => {
@@ -26,6 +27,9 @@ export default function ThisWeekScreen() {
         </View>
         <View style={styles.weekStats}>
           <WeekStats thisWeek={14} hazardous={3} today={2}/>
+        </View>
+        <View style={styles.flybyContainer}>
+          <FlyBy />
         </View>
       </SafeAreaView>
     </ThemedView>
@@ -57,6 +61,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     height: '10%',
+    width: '100%',
+  },
+  flybyContainer: {
+    // backgroundColor: 'blue',
+    marginTop: 10,
     width: '100%',
   }
 });

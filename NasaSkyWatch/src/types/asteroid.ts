@@ -14,3 +14,8 @@ export interface WeekDay {
   dom: string;
   hasHazard: boolean;
 }
+
+export interface AsteroidCardProps {
+  asteroid: AsteroidFlyby;
+  isHazardous: boolean;
+}
