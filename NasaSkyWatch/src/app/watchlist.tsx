@@ -9,7 +9,7 @@ export default function WatchlistScreen() {
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
-        <ThemedTitle title="Watchlist" subtitle="Welcome to the watchlist screen" />
+        <ThemedTitle title="Watchlist" subtitle="Saved asteroids" />
       </SafeAreaView>
     </ThemedView>
   )
