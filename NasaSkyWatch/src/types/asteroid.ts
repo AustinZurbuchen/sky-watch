@@ -18,4 +18,5 @@ export interface WeekDay {
 export interface AsteroidCardProps {
   asteroid: AsteroidFlyby;
   isHazardous: boolean;
+  onPress?: () => void;
 }

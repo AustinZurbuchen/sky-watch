@@ -1,5 +1,6 @@
 import { Linking, Pressable, StyleSheet, View } from "react-native"
 import { ThemedText } from "../theme/themed-text";
+import { Ionicons } from "@expo/vector-icons";
 
 export const CneosLink = () => {
   const handlePress = () => {
@@ -13,7 +14,7 @@ export const CneosLink = () => {
     >
       <View style={styles.cneosLeft}>
         <View style={styles.cneosIconWrap}>
-          <ThemedText style={styles.cneosIcon}>🚀</ThemedText>
+          <Ionicons name="rocket-outline" size={18} color="#4a9eff" />
         </View>
         <View>
           <ThemedText style={styles.cneosTitle}>NASA CNEOS</ThemedText>

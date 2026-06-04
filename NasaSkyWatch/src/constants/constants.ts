@@ -26,3 +26,5 @@ export const Asteroids: AsteroidFlyby[] = [
   { id: '10', name: 'test3', missDistanceLD: 7.8, isHazardous: false, closestApproachUtc: '18:42 UTC', diameterMinM: 20, diameterMaxM: 23 },
   { id: '11', name: 'test4', missDistanceLD: 2.3, isHazardous: true, closestApproachUtc: '21:42 UTC', diameterMinM: 140, diameterMaxM: 142 },
 ]
+
+export const SavedAsteroids: AsteroidFlyby[] = [];
