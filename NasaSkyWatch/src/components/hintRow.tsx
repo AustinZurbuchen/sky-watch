@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { ThemedText } from './theme/themed-text';
-import { ThemedView } from './theme/themed-view';
+import { ThemedText } from './theme/themedText';
+import { ThemedView } from './theme/themedView';
 
 import { Spacing } from '@/constants/theme';
 

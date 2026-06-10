@@ -1,6 +1,6 @@
 import { StyleSheet, TextProps, View } from "react-native";
 
-import { ThemedText } from "./themed-text";
+import { ThemedText } from "./themedText";
 
 export type ThemedTitleProps = TextProps & {
   title: String,

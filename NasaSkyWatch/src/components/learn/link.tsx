@@ -1,5 +1,5 @@
 import { Linking, Pressable, StyleSheet, View } from "react-native"
-import { ThemedText } from "../theme/themed-text";
+import { ThemedText } from "../theme/themedText";
 import { Ionicons } from "@expo/vector-icons";
 
 export const CneosLink = () => {

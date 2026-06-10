@@ -1,8 +1,8 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
 
-import { AnimatedSplashOverlay } from '@/components/animated/animated-icon';
-import AppTabs from '@/components/apptabs/app-tabs';
+import { AnimatedSplashOverlay } from '@/components/animated/animatedIcon';
+import AppTabs from '@/components/apptabs/appTabs';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();

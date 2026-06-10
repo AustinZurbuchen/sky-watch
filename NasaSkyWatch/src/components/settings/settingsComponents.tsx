@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, TextInput, View } from "react-native"
-import { ThemedText } from "../theme/themed-text"
+import { ThemedText } from "../theme/themedText"
 
 export const ChevronValue = ({ value }: { value: string }) => (
   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>

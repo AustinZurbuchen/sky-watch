@@ -1,6 +1,6 @@
 import { NativeTabs, Icon, Label } from 'expo-router/unstable-native-tabs';
 
-import { useTheme } from '@/hooks/use-theme';
+import { useTheme } from '@/hooks/useTheme';
 
 export default function AppTabs() {
   const colors = useTheme();
@@ -11,7 +11,7 @@ export default function AppTabs() {
       indicatorColor={colors.backgroundElement}
       labelStyle={{ selected: { color: colors.text } }}>
 
-      <NativeTabs.Trigger name="this-week">
+      <NativeTabs.Trigger name="thisWeek">
         <Label>This Week</Label>
         <Icon sf="calendar.circle.fill" drawable="custom_android_drawable"/>
       </NativeTabs.Trigger>

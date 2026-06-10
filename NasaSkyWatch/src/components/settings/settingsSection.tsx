@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { ThemedText } from "../theme/themed-text";
+import { ThemedText } from "../theme/themedText";
 
 interface SettingsSectionProps {
   label: string;

@@ -2,13 +2,13 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { ThemedView } from '@/components/theme/themed-view';
+import { ThemedView } from '@/components/theme/themedView';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-import { ThemedTitle } from '@/components/theme/themed-title';
+import { ThemedTitle } from '@/components/theme/themedTitle';
 import { useState } from 'react';
-import { SettingsSection } from '@/components/settings/settings-section';
-import { SettingsRow } from '@/components/settings/settings-row';
-import { ApiKeyInput, ChevronValue, Toggle, ValueLabel } from '@/components/settings/settings-components';
+import { SettingsSection } from '@/components/settings/settingsSection';
+import { SettingsRow } from '@/components/settings/settingsRow';
+import { ApiKeyInput, ChevronValue, Toggle, ValueLabel } from '@/components/settings/settingsComponents';
 
 export default function SettingsScreen() {
   const [notifications, setNotifications] = useState(true);

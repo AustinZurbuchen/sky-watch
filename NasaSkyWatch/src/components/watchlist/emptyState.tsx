@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons"
 import { StyleSheet, View } from "react-native"
-import { ThemedText } from "../theme/themed-text"
+import { ThemedText } from "../theme/themedText"
 
 export const EmptyState = () => {
   return (

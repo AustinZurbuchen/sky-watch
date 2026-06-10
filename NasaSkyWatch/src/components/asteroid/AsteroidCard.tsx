@@ -1,6 +1,6 @@
 import { AsteroidCardProps } from "@/types"
 import { StyleSheet, View } from "react-native"
-import { ThemedText } from "../theme/themed-text"
+import { ThemedText } from "../theme/themedText"
 import { Colors } from '@/constants/theme';
 
 export const AsteroidCard = ({ asteroid, isHazardous }: AsteroidCardProps) => {

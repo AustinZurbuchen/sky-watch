@@ -1,6 +1,6 @@
 import { useCallback, useRef } from "react"
 import { View, StyleSheet, FlatList, ListRenderItem } from "react-native"
-import { ThemedText } from "../theme/themed-text"
+import { ThemedText } from "../theme/themedText"
 import { AsteroidFlyby } from "@/types"
 import { Asteroids } from "@/constants/constants";
 import { AsteroidCard } from "../asteroid/AsteroidCard";

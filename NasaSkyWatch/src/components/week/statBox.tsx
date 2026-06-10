@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-import { ThemedText } from "../theme/themed-text";
-import { ThemedView } from "../theme/themed-view";
-import { useTheme } from '@/hooks/use-theme';
+import { ThemedText } from "../theme/themedText";
+import { ThemedView } from "../theme/themedView";
+import { useTheme } from '@/hooks/useTheme';
 import { ThemeColor } from "@/constants/theme";
 
 export type StatBoxProps = {

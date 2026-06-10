@@ -9,9 +9,9 @@ import {
 import { SymbolView } from 'expo-symbols';
 import { Pressable, useColorScheme, View, StyleSheet } from 'react-native';
 
-import { ExternalLink } from './external-link';
-import { ThemedText } from './theme/themed-text';
-import { ThemedView } from './theme/themed-view';
+import { ExternalLink } from '../externalLink';
+import { ThemedText } from '../theme/themedText';
+import { ThemedView } from '../theme/themedView';
 
 import { Colors, MaxContentWidth, Spacing } from '@/constants/theme';
 

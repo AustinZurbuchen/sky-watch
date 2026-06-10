@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { StatBox } from "./stat-box";
+import { StatBox } from "./statBox";
 
 export type WeekStatsProps = {
   thisWeek: number,

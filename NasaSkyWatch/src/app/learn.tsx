@@ -1,10 +1,10 @@
 import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { ThemedView } from '@/components/theme/themed-view';
+import { ThemedView } from '@/components/theme/themedView';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-import { ThemedTitle } from '@/components/theme/themed-title';
-import { LearnCard } from '@/components/learn/learn-card';
+import { ThemedTitle } from '@/components/theme/themedTitle';
+import { LearnCard } from '@/components/learn/learnCard';
 import { CneosLink } from '@/components/learn/link';
 
 export default function LearnScreen() {

@@ -1,12 +1,12 @@
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { ThemedView } from '@/components/theme/themed-view';
+import { ThemedView } from '@/components/theme/themedView';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { MonthAbr } from '@/constants/constants';
-import { ThemedTitle } from '@/components/theme/themed-title';
-import { WeekStrip } from '@/components/week/week-strip';
-import { WeekStats } from '@/components/week/week-stats';
+import { ThemedTitle } from '@/components/theme/themedTitle';
+import { WeekStrip } from '@/components/week/weekStrip';
+import { WeekStats } from '@/components/week/weekStats';
 import { FlyBy } from '@/components/flyby/flyby';
 
 export default function ThisWeekScreen() {

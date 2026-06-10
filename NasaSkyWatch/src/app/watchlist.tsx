@@ -1,13 +1,13 @@
 import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { ThemedView } from '@/components/theme/themed-view';
+import { ThemedView } from '@/components/theme/themedView';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-import { ThemedTitle } from '@/components/theme/themed-title';
+import { ThemedTitle } from '@/components/theme/themedTitle';
 import { SavedAsteroids } from '@/constants/constants';
 import { AsteroidFlyby } from '@/types';
 import { AsteroidCard } from '@/components/asteroid/AsteroidCard';
-import { EmptyState } from '@/components/watchlist/empty-state';
+import { EmptyState } from '@/components/watchlist/emptyState';
 
 export default function WatchlistScreen() {
   const isEmpty = SavedAsteroids.length === 0;

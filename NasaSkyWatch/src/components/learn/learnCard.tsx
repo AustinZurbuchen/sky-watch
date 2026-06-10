@@ -1,6 +1,6 @@
 import { LeanrCardProps } from "@/types/learn";
 import { StyleSheet, View } from "react-native";
-import { ThemedText } from "../theme/themed-text";
+import { ThemedText } from "../theme/themedText";
 
 export const LearnCard = ({ badge, isWarning, title, body }: LeanrCardProps) => {
   return (
