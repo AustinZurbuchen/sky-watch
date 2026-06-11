@@ -1,4 +1,5 @@
 import { useCallback, useRef } from "react"
+import { router } from "expo-router";
 import { View, StyleSheet, FlatList, ListRenderItem } from "react-native"
 import { ThemedText } from "../theme/themedText"
 import { AsteroidFlyby } from "@/types"
@@ -10,13 +11,17 @@ const ITEM_SEPARATOR = 10;
 
 export const FlyBy = () => {
   const listRef = useRef<FlatList<AsteroidFlyby>>(null);
+
+  const handleCardPress = useCallback((asteroid: AsteroidFlyby) => {
+    router.push(`/asteroid/${asteroid.id}`);
+  }, []);
   
   const renderItem: ListRenderItem<AsteroidFlyby> = useCallback(({ item }) => (
     <AsteroidCard 
       asteroid={item}
-      isHazardous={item.isHazardous}
+      onPress={() => handleCardPress(item)}
     />
-  ), []);
+  ), [handleCardPress]);
 
   const getItemLayout = (_: ArrayLike<AsteroidFlyby> | null | undefined, index: number ) => ({
     length: ITEM_HEIGHT + ITEM_SEPARATOR,

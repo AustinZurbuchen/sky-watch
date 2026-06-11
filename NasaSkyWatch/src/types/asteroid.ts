@@ -6,6 +6,10 @@ export interface AsteroidFlyby {
   closestApproachUtc: string;
   diameterMinM: number;
   diameterMaxM: number;
+  date: string;
+  velocityKms: number;
+  absoluteMagnitude: string;
+  orbitClass: string;
 }
 
 export interface WeekDay {
@@ -17,6 +21,5 @@ export interface WeekDay {
 
 export interface AsteroidCardProps {
   asteroid: AsteroidFlyby;
-  isHazardous: boolean;
   onPress?: () => void;
 }

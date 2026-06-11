@@ -1,14 +1,21 @@
 import { AsteroidCardProps } from "@/types"
-import { StyleSheet, View } from "react-native"
+import { Pressable, StyleSheet, View } from "react-native"
 import { ThemedText } from "../theme/themedText"
 import { Colors } from '@/constants/theme';
 
-export const AsteroidCard = ({ asteroid, isHazardous }: AsteroidCardProps) => {
+export const AsteroidCard = ({ asteroid, onPress }: AsteroidCardProps) => {
   return (
-    <View style={[styles.asteroidContainer, isHazardous && styles.cardHazardous]}>
-      <View style={[styles.iconWrap, isHazardous ? styles.iconWrapDanger : styles.iconWrapSafe]}>
-        <ThemedText style={[styles.iconText, isHazardous ? styles.iconTextDanger : styles.iconTextSafe]}>
-          {isHazardous ? '⚠' : '●'}
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.asteroidContainer,
+        asteroid.isHazardous && styles.cardHazardous,
+        pressed && styles.cardPressed,
+      ]}
+    >
+      <View style={[styles.iconWrap, asteroid.isHazardous ? styles.iconWrapDanger : styles.iconWrapSafe]}>
+        <ThemedText style={[styles.iconText, asteroid.isHazardous ? styles.iconTextDanger : styles.iconTextSafe]}>
+          {asteroid.isHazardous ? '⚠' : '●'}
         </ThemedText>
       </View>
       <View style={styles.left}>
@@ -17,13 +24,13 @@ export const AsteroidCard = ({ asteroid, isHazardous }: AsteroidCardProps) => {
       </View>
       <View style={styles.right}>
         <ThemedText style={styles.distance} >{asteroid.missDistanceLD} LD</ThemedText>
-        <View style={[styles.badge, isHazardous ? styles.badgeHazardous : styles.badgeSafe]}>
-          <ThemedText style={[styles.badgeText, isHazardous ? styles.badgeTextHazardous : styles.badgeTextSafe]}>
-            {isHazardous ? 'Hazardous' : 'Safe'}
+        <View style={[styles.badge, asteroid.isHazardous ? styles.badgeHazardous : styles.badgeSafe]}>
+          <ThemedText style={[styles.badgeText, asteroid.isHazardous ? styles.badgeTextHazardous : styles.badgeTextSafe]}>
+            {asteroid.isHazardous ? 'Hazardous' : 'Safe'}
           </ThemedText>
         </View>
       </View>
-    </View>
+    </Pressable>
   )
 }
 
@@ -41,6 +48,9 @@ const styles = StyleSheet.create({
   cardHazardous: {
     backgroundColor: '#130e0e',
     borderColor: '#3d1f1f',
+  },
+  cardPressed: {
+    opacity: 0.7,
   },
   iconWrap: {
     width: 40,

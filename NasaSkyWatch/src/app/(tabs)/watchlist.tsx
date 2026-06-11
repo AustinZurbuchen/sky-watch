@@ -15,7 +15,6 @@ export default function WatchlistScreen() {
   const renderItem: ListRenderItem<AsteroidFlyby> = ({ item }) => (
     <AsteroidCard
       asteroid={item}
-      isHazardous={item.isHazardous}
       onPress={() => {console.log('clicked')}}
     />
   )

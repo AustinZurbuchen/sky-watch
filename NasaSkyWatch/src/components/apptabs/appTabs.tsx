@@ -11,7 +11,7 @@ export default function AppTabs() {
       indicatorColor={colors.backgroundElement}
       labelStyle={{ selected: { color: colors.text } }}>
 
-      <NativeTabs.Trigger name="thisWeek">
+      <NativeTabs.Trigger name="index">
         <Label>This Week</Label>
         <Icon sf="calendar.circle.fill" drawable="custom_android_drawable"/>
       </NativeTabs.Trigger>
