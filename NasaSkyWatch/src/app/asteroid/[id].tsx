@@ -62,7 +62,7 @@ export default function AsteroidDetailScreen() {
         <ThemedText style={styles.sectionLabel}>Physical Properties</ThemedText>
         <View style={styles.detailCard}>
           <DetailRow label="Est. Diameter" value={`${asteroid.diameterMinM}-${asteroid.diameterMaxM}m`} />
-          <DetailRow label="Absolute Magnitude" value={asteroid.absoluteMagnitude} />
+          <DetailRow label="Absolute Magnitude" value={`${asteroid.absoluteMagnitude}`} />
           <DetailRow label="Orbit Class" value={asteroid.orbitClass} isLast/>
         </View>
 

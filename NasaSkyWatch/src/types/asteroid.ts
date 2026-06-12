@@ -8,8 +8,14 @@ export interface AsteroidFlyby {
   diameterMaxM: number;
   date: string;
   velocityKms: number;
-  absoluteMagnitude: string;
+  absoluteMagnitude: number;
   orbitClass: string;
+}
+
+export interface AsteroidsByDate {
+  date: string;
+  asteroids: AsteroidFlyby[];
+  hasHazardous: boolean;
 }
 
 export interface WeekDay {
