@@ -3,14 +3,23 @@ import { router } from "expo-router";
 import { View, StyleSheet, FlatList, ListRenderItem } from "react-native"
 import { ThemedText } from "../theme/themedText"
 import { AsteroidFlyby } from "@/types"
-import { Asteroids } from "@/constants/constants";
 import { AsteroidCard } from "../asteroid/AsteroidCard";
+import { useAsteroids } from "@/hooks/useAsteroids";
+import { useWeekStore } from "@/store/weekStore";
+import { LoadingState, ErrorState } from "../feeback";
 
 const ITEM_HEIGHT = 100;
 const ITEM_SEPARATOR = 10;
 
 export const FlyBy = () => {
   const listRef = useRef<FlatList<AsteroidFlyby>>(null);
+  const { data, isLoading, isError, refetch } = useAsteroids();
+  const { selectedDate } = useWeekStore();
+
+  const todaysFlybys = data?.find((group) => group.date === selectedDate)?.asteroids ?? [];
+
+  if (isLoading) return <LoadingState />
+  if (isError) return <ErrorState onRetry={refetch} />
 
   const handleCardPress = useCallback((asteroid: AsteroidFlyby) => {
     router.push(`/asteroid/${asteroid.id}`);
@@ -35,7 +44,7 @@ export const FlyBy = () => {
       <View style={styles.container}>
         <FlatList<AsteroidFlyby>
           ref={listRef}
-          data={Asteroids}
+          data={todaysFlybys}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}

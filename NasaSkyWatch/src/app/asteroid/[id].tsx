@@ -1,5 +1,4 @@
 import { ThemedText } from "@/components/theme/themedText";
-import { ThemedTitle } from "@/components/theme/themedTitle";
 import { Asteroids } from "@/constants/constants";
 import { Colors } from "@/constants/theme";
 import { Ionicons } from "@expo/vector-icons";

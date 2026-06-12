@@ -32,8 +32,8 @@ export default function SettingsScreen() {
             />
             <SettingsRow 
               icon={<Ionicons name="calendar-outline" size={18} color="#4a9eff" />}
-              title="Days in past"
-              right={<ChevronValue value="2" />}
+              title="Week Start On"
+              right={<ChevronValue value="Monday" />}
             />
             <SettingsRow 
               icon={<Ionicons name="notifications-outline" size={18} color="#4a9eff" />}

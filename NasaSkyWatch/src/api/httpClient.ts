@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.nasa.gov/new/rest/v1';
+const BASE_URL = 'https://api.nasa.gov/neo/rest/v1';
 const DEFAULT_API_KEY = 'DEMO_KEY';
 
 interface FetchOptions {
