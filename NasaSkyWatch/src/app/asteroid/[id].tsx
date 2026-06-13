@@ -20,7 +20,6 @@ export default function AsteroidDetailScreen() {
   let saved = isSaved(id);
 
   const handleBookmark = () => {
-    console.log("saved: ", saved);
     if (saved) {
       removeAsteroid(asteroid.id);
       saved = !saved;

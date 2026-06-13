@@ -20,8 +20,6 @@ export default function WatchlistScreen() {
   const isEmpty = savedAsteroids.length === 0;
   
   const handleCardPress = useCallback((asteroid: AsteroidFlyby) => {
-    console.log(asteroid);
-    console.log(savedAsteroids);
     router.push(`/asteroid/${asteroid.id}`);
   }, []);
 

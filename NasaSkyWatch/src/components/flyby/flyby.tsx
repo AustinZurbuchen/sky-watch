@@ -24,7 +24,6 @@ export const FlyBy = () => {
   if (isError) return <ErrorState onRetry={refetch} />
 
   const handleCardPress = useCallback((asteroid: AsteroidFlyby) => {
-    console.log(asteroid);
     router.push(`/asteroid/${asteroid.id}`);
   }, []);
   
