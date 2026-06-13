@@ -3,6 +3,7 @@ import { WeekDay } from "@/types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
 import { DayPill } from "../daypill/dayPill";
+import { useAsteroids } from "@/hooks/useAsteroids";
 
 const ITEM_WIDTH = 68;
 const ITEM_SEPARATOR = 8;
@@ -10,6 +11,7 @@ const ITEM_SEPARATOR = 8;
 export const WeekStrip = () => {
   const [selectedDate, setSelectedDate] = useState<string>('2026-05-21');
   const listRef = useRef<FlatList<WeekDay>>(null);
+  const { data, isLoading, isError, refetch } = useAsteroids();
 
   useEffect(() => {
     const todayIndex = Days.findIndex(d => d.date === '2026-05-21');

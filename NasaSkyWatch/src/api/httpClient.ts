@@ -1,5 +1,5 @@
 const BASE_URL = 'https://api.nasa.gov/neo/rest/v1';
-const DEFAULT_API_KEY = 'DEMO_KEY';
+const DEFAULT_API_KEY = process.env.EXPO_PUBLIC_API_KEY ?? "DEMO_KEY";
 
 interface FetchOptions {
   params?: Record<string, string>;

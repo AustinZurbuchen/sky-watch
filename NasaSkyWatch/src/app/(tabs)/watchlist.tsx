@@ -4,20 +4,37 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedView } from '@/components/theme/themedView';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { ThemedTitle } from '@/components/theme/themedTitle';
-import { SavedAsteroids } from '@/constants/constants';
 import { AsteroidFlyby } from '@/types';
 import { AsteroidCard } from '@/components/asteroid/AsteroidCard';
 import { EmptyState } from '@/components/watchlist/emptyState';
+import { useWatchlistStore } from '@/store/watchlistStore';
+import { useCallback } from 'react';
+import { router } from 'expo-router';
+
+const ITEM_HEIGHT = 100;
+const ITEM_SEPARATOR = 10;
 
 export default function WatchlistScreen() {
-  const isEmpty = SavedAsteroids.length === 0;
+  const savedAsteroids = useWatchlistStore((state) => state.savedAsteroids)
+  const isEmpty = savedAsteroids.length === 0;
   
+  const handleCardPress = useCallback((asteroid: AsteroidFlyby) => {
+    console.log(asteroid);
+    router.push(`/asteroid/${asteroid.id}`);
+  }, []);
+
   const renderItem: ListRenderItem<AsteroidFlyby> = ({ item }) => (
     <AsteroidCard
       asteroid={item}
-      onPress={() => {console.log('clicked')}}
+      onPress={() => handleCardPress(item)}
     />
   )
+
+  const getItemLayout = (_: ArrayLike<AsteroidFlyby> | null | undefined, index: number ) => ({
+    length: ITEM_HEIGHT + ITEM_SEPARATOR,
+    offset: (ITEM_HEIGHT + ITEM_SEPARATOR) * index,
+    index,
+  })
 
   return (
     <ThemedView style={styles.container}>
@@ -25,13 +42,14 @@ export default function WatchlistScreen() {
         <ThemedTitle title="Watchlist" subtitle="Saved asteroids" />
         {isEmpty ? <EmptyState /> : (
           <FlatList<AsteroidFlyby>
-            data={SavedAsteroids}
-            keyExtractor={(item) => item.id}
-            renderItem={renderItem}
-            contentContainerStyle={styles.listContent}
-            showsVerticalScrollIndicator={false}
-            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-          />
+          data={savedAsteroids}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          getItemLayout={getItemLayout}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.listContent}
+          ItemSeparatorComponent={() => <View style={{ height: ITEM_SEPARATOR }} />}
+        />
         )}
       </SafeAreaView>
     </ThemedView>

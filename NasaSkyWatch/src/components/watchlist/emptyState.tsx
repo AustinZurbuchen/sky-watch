@@ -1,16 +1,17 @@
 import { Ionicons } from "@expo/vector-icons"
 import { StyleSheet, View } from "react-native"
 import { ThemedText } from "../theme/themedText"
+import { Spacing } from "@/constants/theme"
 
 export const EmptyState = () => {
   return (
-    <View style={styles.emptyContainer}>
-      <View style={styles.emptyContent}>
-        <View style={styles.emptyIconWrap}>
-          <Ionicons name="bookmark-outline" size={40} color="#2a3050" />
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <View style={styles.iconWrap}>
+          <Ionicons name="bookmark-outline" size={36} color="#2a3050" />
         </View>
-        <ThemedText style={styles.emptyTitle}>No saved asteroids</ThemedText>
-        <ThemedText style={styles.emptyBody}>
+        <ThemedText style={styles.title}>No saved asteroids</ThemedText>
+        <ThemedText style={styles.body}>
           Tap the bookmark on any asteroid to save it here for quick access.
         </ThemedText>
       </View>
@@ -19,10 +20,10 @@ export const EmptyState = () => {
 }
 
 const styles = StyleSheet.create({
-  emptyContainer: {
+  container: {
     flex: 1,
   },
-  emptyContent: {
+  content: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     gap: 12,
     marginTop: -60,
   },
-  emptyIconWrap: {
+  iconWrap: {
     width: 72,
     height: 72,
     borderRadius: 20,
@@ -41,13 +42,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 4,
   },
-  emptyTitle: {
+  title: {
     fontSize: 17,
     fontWeight: '500',
     color: '#ffffff',
     textAlign: 'center',
   },
-  emptyBody: {
+  body: {
     fontSize: 14,
     color: '#6b7599',
     textAlign: 'center',

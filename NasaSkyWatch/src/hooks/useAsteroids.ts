@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getNearEarthObjects } from '@/api/nasa';
+import { useEffect } from 'react';
+import { useAsteroidStore } from '@/store/asteroidStore';
 
 const getWeekDates = () => {
   const start = new Date();
@@ -15,9 +17,18 @@ const getWeekDates = () => {
 
 export const useAsteroids = () => {
   const { startDate, endDate } = getWeekDates();
+  const setAsteroidsByDate = useAsteroidStore((state) => state.setAsteroidsByDate);
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ['asteroids', startDate, endDate],
     queryFn: () => getNearEarthObjects(startDate, endDate),
   });
+
+  useEffect(() => {
+    if (query.data) {
+      setAsteroidsByDate(query.data);
+    }
+  }, [query.data]);
+
+  return query;
 };

@@ -14,12 +14,12 @@ export const mapNeoEntryToAsteroidFlyby = (entry: NasaNeoEntry, date: string): A
     id: entry.id,
     name: entry.name,
     isHazardous: entry.is_potentially_hazardous_asteroid,
-    missDistanceLD: parseFloat(closeApproach.miss_distance.lunar),
+    missDistanceLD: Math.round(parseFloat(closeApproach.miss_distance.lunar)),
     closestApproachUtc: closeApproach.close_approach_date_full,
     diameterMinM: Math.round(entry.estimated_diameter.meters.estimated_diameter_min),
     diameterMaxM: Math.round(entry.estimated_diameter.meters.estimated_diameter_max), 
     date,
-    velocityKms: parseFloat(closeApproach.relative_velocity.kilometers_per_second),
+    velocityKms: Math.round(parseFloat(closeApproach.relative_velocity.kilometers_per_second) * 10) / 10,
     absoluteMagnitude: entry.absolute_magnitude_h,
     orbitClass: ORBIT_CLASS_LABELS[
       entry.orbital_data?.orbit_class?.orbit_class_type ?? ''

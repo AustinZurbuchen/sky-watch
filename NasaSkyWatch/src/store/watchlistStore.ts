@@ -1,15 +1,7 @@
 import { AsteroidFlyby } from "@/types";
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { createMMKV } from 'react-native-mmkv';
-
-const storage = createMMKV();
-
-const mmkvStorage = {
-  getItem: (key: string) => storage.getString(key) ?? null,
-  setItem: (key: string, value: string) => storage.set(key, value),
-  removeItem: (key: string) => storage.remove(key),
-};
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface WatchlistStore {
   savedAsteroids: AsteroidFlyby[];
@@ -37,7 +29,7 @@ export const useWatchlistStore = create<WatchlistStore>()(
     }),
     {
       name: 'watchlist-storage',
-      storage: createJSONStorage(() => mmkvStorage),
+      storage: createJSONStorage(() => AsyncStorage),
     }
   )
 );

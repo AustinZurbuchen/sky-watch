@@ -1,6 +1,8 @@
+import { ErrorState } from "@/components/feeback";
 import { ThemedText } from "@/components/theme/themedText";
-import { Asteroids } from "@/constants/constants";
 import { Colors } from "@/constants/theme";
+import { useAsteroidStore } from "@/store/asteroidStore";
+import { useWatchlistStore } from "@/store/watchlistStore";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { Pressable, ScrollView, View, StyleSheet } from "react-native";
@@ -8,10 +10,25 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function AsteroidDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const asteroidsByDate = useAsteroidStore((state) => state.asteroidsByDate);
+  const { isSaved, addAsteroid, removeAsteroid } = useWatchlistStore();
 
-  const asteroid = Asteroids.find((asteroid) => asteroid.id === id);
+  const asteroid = asteroidsByDate.flatMap((group) => group.asteroids).find((a) => a.id === id);
 
-  if (!asteroid) return null;
+  if (!asteroid) return <ErrorState message={`Asteroid ${id} not found`} />;
+
+  let saved = isSaved(id);
+
+  const handleBookmark = () => {
+    console.log("saved: ", saved);
+    if (saved) {
+      removeAsteroid(asteroid.id);
+      saved = !saved;
+    } else {
+      addAsteroid(asteroid);
+      saved = !saved;
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -65,9 +82,9 @@ export default function AsteroidDetailScreen() {
           <DetailRow label="Orbit Class" value={asteroid.orbitClass} isLast/>
         </View>
 
-        <Pressable style={({ pressed }) => [styles.saveBtn, pressed && {opacity: 0.7 }]}>
-          <Ionicons name="bookmark-outline" size={20} color="#4a9eff" />
-          <ThemedText style={styles.saveBtnText}>Save to Watchlist</ThemedText>
+        <Pressable onPress={handleBookmark} style={({ pressed }) => [styles.saveBtn, pressed && {opacity: 0.7 }]}>
+          <Ionicons name={saved ? "bookmark" : "bookmark-outline"} size={20} color="#4a9eff" />
+          <ThemedText style={styles.saveBtnText}>{saved ? 'Saved to Watchlist': 'Save to Watchlist'}</ThemedText>
         </Pressable>
       </ScrollView>
     </SafeAreaView>
