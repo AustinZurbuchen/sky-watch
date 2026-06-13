@@ -8,8 +8,12 @@ import { ThemedTitle } from '@/components/theme/themedTitle';
 import { WeekStrip } from '@/components/week/weekStrip';
 import { WeekStats } from '@/components/week/weekStats';
 import { FlyBy } from '@/components/flyby/flyby';
+import { getAsteroidCount, getHazardousCount, getTodaysCount } from '@/utils/utils';
+import { useAsteroidStore } from '@/store/asteroidStore';
+import { format } from 'date-fns';
 
 export default function IndexScreen() {
+  const asteroidsByDate = useAsteroidStore((state) => state.asteroidsByDate);
   const getDateRange = () => {
     const curDate = new Date();
     const beginDate = new Date(); 
@@ -26,7 +30,7 @@ export default function IndexScreen() {
           <WeekStrip />
         </View>
         <View style={styles.weekStats}>
-          <WeekStats thisWeek={14} hazardous={3} today={2}/>
+          <WeekStats thisWeek={getAsteroidCount(asteroidsByDate)} hazardous={getHazardousCount(asteroidsByDate)} today={getTodaysCount(format(new Date, 'yyyy-MM-d'), asteroidsByDate)}/>
         </View>
         <View style={styles.flybyContainer}>
           <FlyBy />

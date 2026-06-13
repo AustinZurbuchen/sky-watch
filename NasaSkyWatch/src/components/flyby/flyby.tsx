@@ -5,9 +5,9 @@ import { ThemedText } from "../theme/themedText"
 import { AsteroidFlyby } from "@/types"
 import { AsteroidCard } from "../asteroid/AsteroidCard";
 import { useAsteroids } from "@/hooks/useAsteroids";
-import { useWeekStore } from "@/store/weekStore";
 import { LoadingState, ErrorState } from "../feeback";
 import { useAsteroidStore } from "@/store/asteroidStore";
+import { useSelectedDateStore } from "@/store/selectedDateStore";
 
 const ITEM_HEIGHT = 100;
 const ITEM_SEPARATOR = 10;
@@ -15,7 +15,7 @@ const ITEM_SEPARATOR = 10;
 export const FlyBy = () => {
   const listRef = useRef<FlatList<AsteroidFlyby>>(null);
   const { isLoading, isError, refetch } = useAsteroids();
-  const { selectedDate } = useWeekStore();
+  const selectedDate = useSelectedDateStore((state) => state.selectedDate);
 
   const asteroidsByDate = useAsteroidStore((state) => state.asteroidsByDate);
   const todaysFlybys = asteroidsByDate.find((group) => group.date === selectedDate)?.asteroids ?? [];

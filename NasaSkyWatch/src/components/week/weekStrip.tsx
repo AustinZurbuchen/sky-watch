@@ -1,20 +1,26 @@
-import { Days } from "@/constants/constants";
 import { WeekDay } from "@/types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
 import { DayPill } from "../daypill/dayPill";
 import { useAsteroids } from "@/hooks/useAsteroids";
+import { getDays } from "@/utils/utils";
+import { useAsteroidStore } from "@/store/asteroidStore";
+import { format } from "date-fns";
+import { useSelectedDateStore } from "@/store/selectedDateStore";
 
 const ITEM_WIDTH = 68;
 const ITEM_SEPARATOR = 8;
 
 export const WeekStrip = () => {
-  const [selectedDate, setSelectedDate] = useState<string>('2026-05-21');
+  const asteroidsByDate = useAsteroidStore((state) => state.asteroidsByDate);
   const listRef = useRef<FlatList<WeekDay>>(null);
-  const { data, isLoading, isError, refetch } = useAsteroids();
+  const selectedDate = useSelectedDateStore((state) => state.selectedDate);
+  const setSelectedDate = useSelectedDateStore((state) => state.setSelectedDate);
+  const days = getDays(asteroidsByDate);
 
   useEffect(() => {
-    const todayIndex = Days.findIndex(d => d.date === '2026-05-21');
+    setSelectedDate(format(new Date, 'yyyy-MM-d'));
+    const todayIndex = days.findIndex(d => d.date === format(new Date, 'yyyy-MM-d'));
     if (todayIndex !== -1) {
       listRef.current?.scrollToIndex({ index: 0, animated: false});
     }
@@ -37,7 +43,7 @@ export const WeekStrip = () => {
   return (
     <FlatList<WeekDay>
       ref={listRef}
-      data={Days}
+      data={days}
       horizontal
       showsHorizontalScrollIndicator={false}
       keyExtractor={(item) => item.date}
