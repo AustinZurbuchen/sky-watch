@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 interface ChevronProps {
   value: string | number;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 export const ChevronValue = ({ value, onPress }: ChevronProps) => (
