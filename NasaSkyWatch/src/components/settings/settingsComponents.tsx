@@ -1,12 +1,30 @@
 import { Pressable, StyleSheet, TextInput, View } from "react-native"
 import { ThemedText } from "../theme/themedText"
+import { Ionicons } from "@expo/vector-icons";
 
-export const ChevronValue = ({ value }: { value: string }) => (
-  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-    <ThemedText style={{ color: '#6b7599', fontSize: 13 }}>{value}</ThemedText>
-    <ThemedText style={{ color: '#6b7599', fontSize: 13 }}>{`›`}</ThemedText>
-  </View>
+interface ChevronProps {
+  value: string | number;
+  onPress: () => void;
+}
+
+export const ChevronValue = ({ value, onPress }: ChevronProps) => (
+  <Pressable onPress={onPress} style={({ pressed }) => [ chevronStyles.container, pressed && { opacity: 0.7 }]}>
+    <ThemedText style={chevronStyles.value}>{value}</ThemedText>
+    <Ionicons name="chevron-forward" size={16} color="#6b7599" />
+  </Pressable>
 );
+
+const chevronStyles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  value: {
+    color: '#6b7599',
+    fontSize: 13,
+  },
+});
 
 interface ToggleProps {
   value: boolean;

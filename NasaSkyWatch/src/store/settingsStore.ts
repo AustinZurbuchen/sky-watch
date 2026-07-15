@@ -1,26 +1,26 @@
 import { create } from 'zustand';
 
 type DistanceUnit = 'LD' | 'km';
-type WeekStart = 'Monday' | 'Sunday';
+type DaysPast = 2 | 4;
 
 interface SettingsStore {
   distanceUnit: DistanceUnit;
-  weekStartsOn: WeekStart;
+  daysInPast: DaysPast;
   hazardNotifications: boolean;
   apiKeyOverride: string;
   setDistanceUnit: (unit: DistanceUnit) => void;
-  setWeekStartsOn: (day: WeekStart) => void;
+  setDaysInPast: (day: DaysPast) => void;
   setHazardNotifications: (value: boolean) => void;
   setApiKeyOverride: (key: string) => void;
 }
 
 export const useSettingsStore = create<SettingsStore>((set) => ({
   distanceUnit: 'LD',
-  weekStartsOn: 'Monday',
+  daysInPast: 2,
   hazardNotifications: true,
   apiKeyOverride: '',
   setDistanceUnit: (unit) => set({ distanceUnit: unit }),
-  setWeekStartsOn: (day) => set({ weekStartsOn: day}),
+  setDaysInPast: (day) => set({ daysInPast: day}),
   setHazardNotifications: (value) => ({ hazardNotifications: value }),
   setApiKeyOverride: (key) => set({ apiKeyOverride: key }),
 }))

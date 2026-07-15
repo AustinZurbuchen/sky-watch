@@ -9,11 +9,19 @@ import { useState } from 'react';
 import { SettingsSection } from '@/components/settings/settingsSection';
 import { SettingsRow } from '@/components/settings/settingsRow';
 import { ApiKeyInput, ChevronValue, Toggle, ValueLabel } from '@/components/settings/settingsComponents';
+import { useSettingsStore } from '@/store/settingsStore';
 
 export default function SettingsScreen() {
   const [notifications, setNotifications] = useState(true);
   const [debugMode, setDebugMode] = useState(false);
   const [apiKey, setApiKey] = useState('');
+
+  const {
+    distanceUnit,
+    daysInPast,
+    setDistanceUnit,
+    setDaysInPast
+  } = useSettingsStore()
 
   return (
     <ThemedView style={styles.container}>
@@ -28,12 +36,16 @@ export default function SettingsScreen() {
             <SettingsRow 
               icon={<MaterialCommunityIcons name="ruler" size={18} color="#4a9eff" />}
               title="Distance Units"
-              right={<ChevronValue value="LD" />}
+              right={<ChevronValue value={distanceUnit} onPress={() => setDistanceUnit(distanceUnit == 'LD' ? 'km' : 'LD')}/>}
             />
             <SettingsRow 
               icon={<Ionicons name="calendar-outline" size={18} color="#4a9eff" />}
-              title="Week Start On"
-              right={<ChevronValue value="Monday" />}
+              title="Days in the past"
+              right={<ChevronValue 
+                value={daysInPast}
+                onPress={() => 
+                  setDaysInPast(daysInPast == 2 ? 4 : 2)
+                } />}
             />
             <SettingsRow 
               icon={<Ionicons name="notifications-outline" size={18} color="#4a9eff" />}
