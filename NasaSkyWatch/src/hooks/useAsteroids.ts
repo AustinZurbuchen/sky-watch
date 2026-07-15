@@ -2,10 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import { getNearEarthObjects } from '@/api/nasa';
 import { useEffect } from 'react';
 import { useAsteroidStore } from '@/store/asteroidStore';
+import { useSettingsStore } from '@/store/settingsStore';
+
+const { daysInPast } = useSettingsStore.getState();
 
 const getWeekDates = () => {
   const start = new Date();
-  start.setDate(start.getDate() - 2);
+  start.setDate(start.getDate() - daysInPast);
   const end = new Date(start);
   end.setDate(start.getDate() + 7);
 

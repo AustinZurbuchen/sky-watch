@@ -1,10 +1,12 @@
+import { useSettingsStore } from "@/store/settingsStore";
 import { AsteroidsByDate, WeekDay } from "@/types";
 import { format } from "date-fns";
 
 export const getDays = (asteroidsByDate: AsteroidsByDate[]) => {
+  const { daysInPast } = useSettingsStore.getState();
   const curDate = new Date();
   const beginDate = new Date();
-  beginDate.setDate(curDate.getDate() - 2);
+  beginDate.setDate(curDate.getDate() - daysInPast);
 
   let days: WeekDay[] = [];
   let formattedDate = '';
