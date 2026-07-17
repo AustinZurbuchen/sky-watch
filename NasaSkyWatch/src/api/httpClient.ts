@@ -1,5 +1,7 @@
+import { useSettingsStore } from "@/store/settingsStore";
+
 const BASE_URL = 'https://api.nasa.gov/neo/rest/v1';
-const DEFAULT_API_KEY = process.env.EXPO_PUBLIC_API_KEY ?? "DEMO_KEY";
+const DEFAULT_API_KEY = "DEMO_KEY";
 
 interface FetchOptions {
   params?: Record<string, string>;
@@ -9,7 +11,9 @@ export const httpClient = {
   get: async <T>(endpoint: string, options?: FetchOptions): Promise<T> => {
     const url = new URL(`${BASE_URL}${endpoint}`);
 
-    url.searchParams.append('api_key', DEFAULT_API_KEY);
+    const apiKey = useSettingsStore.getState().apiKeyOverride || DEFAULT_API_KEY;
+    url.searchParams.append('api_key', apiKey);
+    console.log(url.toString());
 
     if (options?.params) {
       Object.entries(options.params).forEach(([key, value]) => {

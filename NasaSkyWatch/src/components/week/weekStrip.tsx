@@ -2,7 +2,6 @@ import { WeekDay } from "@/types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
 import { DayPill } from "../daypill/dayPill";
-import { useAsteroids } from "@/hooks/useAsteroids";
 import { getDays } from "@/utils/utils";
 import { useAsteroidStore } from "@/store/asteroidStore";
 import { format } from "date-fns";

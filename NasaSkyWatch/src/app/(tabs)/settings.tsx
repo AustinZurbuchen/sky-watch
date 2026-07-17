@@ -14,13 +14,14 @@ import { useSettingsStore } from '@/store/settingsStore';
 export default function SettingsScreen() {
   const [notifications, setNotifications] = useState(true);
   const [debugMode, setDebugMode] = useState(false);
-  const [apiKey, setApiKey] = useState('');
 
   const {
     distanceUnit,
     daysInPast,
+    apiKeyOverride,
     setDistanceUnit,
-    setDaysInPast
+    setDaysInPast,
+    setApiKeyOverride
   } = useSettingsStore()
 
   return (
@@ -59,7 +60,7 @@ export default function SettingsScreen() {
               icon={<Ionicons name="key-outline" size={18} color="#4a9eff" />}
               title="NASA API Key"
               subtitle="Leave blank to use default"
-              right={<ApiKeyInput value={apiKey} onChange={setApiKey} />} 
+              right={<ApiKeyInput value={apiKeyOverride} onChange={setApiKeyOverride} />} 
             />
             <SettingsRow 
               icon={<Ionicons name="bug-outline" size={18} color="#4a9eff" />}
