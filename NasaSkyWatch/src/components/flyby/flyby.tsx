@@ -14,7 +14,7 @@ const ITEM_SEPARATOR = 10;
 
 export const FlyBy = () => {
   const listRef = useRef<FlatList<AsteroidFlyby>>(null);
-  const { isLoading, isError, refetch } = useAsteroids();
+  const { isLoading, isError, refetch, isRefetching } = useAsteroids();
   const selectedDate = useSelectedDateStore((state) => state.selectedDate);
 
   const asteroidsByDate = useAsteroidStore((state) => state.asteroidsByDate);
@@ -48,6 +48,8 @@ export const FlyBy = () => {
           ref={listRef}
           data={todaysFlybys}
           showsVerticalScrollIndicator={false}
+          onRefresh={refetch}
+          refreshing={isRefetching}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
           getItemLayout={getItemLayout}

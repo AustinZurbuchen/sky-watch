@@ -12,17 +12,21 @@ import { ApiKeyInput, ChevronValue, Toggle, ValueLabel } from '@/components/sett
 import { useSettingsStore } from '@/store/settingsStore';
 
 export default function SettingsScreen() {
-  const [notifications, setNotifications] = useState(true);
   const [debugMode, setDebugMode] = useState(false);
 
   const {
     distanceUnit,
     daysInPast,
+    hazardNotifications,
     apiKeyOverride,
+    hasHydrated,
     setDistanceUnit,
     setDaysInPast,
-    setApiKeyOverride
+    setHazardNotifications,
+    setApiKeyOverride,
   } = useSettingsStore()
+  
+  if (!hasHydrated) { return null; }
 
   return (
     <ThemedView style={styles.container}>
@@ -52,7 +56,7 @@ export default function SettingsScreen() {
               icon={<Ionicons name="notifications-outline" size={18} color="#4a9eff" />}
               title="Hazard notifications"
               isLast
-              right={<Toggle value={notifications} onToggle={() => setNotifications(prev => !prev)} />}
+              right={<Toggle value={hazardNotifications} onToggle={() => setHazardNotifications(!hazardNotifications)} />}
             />
           </SettingsSection>
           <SettingsSection label="Developer">
