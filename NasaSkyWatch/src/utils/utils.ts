@@ -9,12 +9,18 @@ export const getDays = (asteroidsByDate: AsteroidsByDate[]) => {
   beginDate.setDate(curDate.getDate() - daysInPast);
 
   let days: WeekDay[] = [];
-  let formattedDate = '';
   for (let i = 0; i <= 7; i++) {
-    const date = new Date().setDate(beginDate.getDate() + i);
-    formattedDate = format(date, 'yyyy-MM-d');
-    const hasHazardous: boolean = asteroidsByDate.find(item => item.date === format(date, 'yyyy-MM-d'))?.hasHazardous || false;
-    const day: WeekDay = {date: format(date, 'yyyy-MM-d'), dow: format(date, 'EEE'), dom: format(date, 'd'), hasHazard: hasHazardous}
+    const date = new Date(beginDate);
+    date.setDate(beginDate.getDate() + i);
+    const formattedDate = format(date, 'yyyy-MM-d');
+    const asteroidData = asteroidsByDate.find(item => item.date === formattedDate);
+    const hasHazardous = asteroidData?.hasHazardous ?? false;
+    const day: WeekDay = {
+      date: formattedDate,
+      dow: format(date, 'EEE'),
+      dom: format(date, 'd'),
+      hasHazard: hasHazardous,
+    };
     days.push(day);
   }
   return days;
