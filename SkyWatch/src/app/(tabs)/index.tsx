@@ -11,14 +11,16 @@ import { FlyBy } from '@/components/flyby/flyby';
 import { getAsteroidCount, getHazardousCount, getTodaysCount } from '@/utils/utils';
 import { useAsteroidStore } from '@/store/asteroidStore';
 import { format } from 'date-fns';
+import { useSettingsStore } from '@/store/settingsStore';
 
 export default function IndexScreen() {
   const asteroidsByDate = useAsteroidStore((state) => state.asteroidsByDate);
+  const daysInPast = useSettingsStore((state) => state.daysInPast);
   const getDateRange = () => {
     const curDate = new Date();
     const beginDate = new Date(); 
     const endDate = new Date();
-    beginDate.setDate(curDate.getDate() - 2);
+    beginDate.setDate(curDate.getDate() - daysInPast);
     endDate.setDate(beginDate.getDate() + 7);
     return `${MonthAbr[beginDate.getMonth()]} ${beginDate.getDate()} ${beginDate.getFullYear() === endDate.getFullYear() ? "" : beginDate.getFullYear() + " "}- ${MonthAbr[endDate.getMonth()]} ${endDate.getDate()}, ${endDate.getFullYear()}`;
   }

@@ -4,9 +4,7 @@ import { useEffect } from 'react';
 import { useAsteroidStore } from '@/store/asteroidStore';
 import { useSettingsStore } from '@/store/settingsStore';
 
-const { daysInPast } = useSettingsStore.getState();
-
-const getWeekDates = () => {
+const getWeekDates = (daysInPast: number) => {
   const start = new Date();
   start.setDate(start.getDate() - daysInPast);
   const end = new Date(start);
@@ -19,8 +17,10 @@ const getWeekDates = () => {
 };
 
 export const useAsteroids = () => {
-  const { startDate, endDate } = getWeekDates();
+  const daysInPast = useSettingsStore((state) => state.daysInPast);
   const setAsteroidsByDate = useAsteroidStore((state) => state.setAsteroidsByDate);
+
+  const { startDate, endDate } = getWeekDates(daysInPast);
 
   const query = useQuery({
     queryKey: ['asteroids', startDate, endDate],

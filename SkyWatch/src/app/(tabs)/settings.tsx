@@ -12,6 +12,7 @@ import { ApiKeyInput, ChevronValue, Toggle, ValueLabel } from '@/components/sett
 import { useSettingsStore } from '@/store/settingsStore';
 import { scheduleTestNotification, triggerBackgroundTaskForTesting } from '@/utils/testNotifications';
 import { ThemedText } from '@/components/theme/themedText';
+import { useSelectedDateStore } from '@/store/selectedDateStore';
 
 export default function SettingsScreen() {
   const [debugMode, setDebugMode] = useState(false);
@@ -26,7 +27,14 @@ export default function SettingsScreen() {
     setDaysInPast,
     setHazardNotifications,
     setApiKeyOverride,
-  } = useSettingsStore()
+  } = useSettingsStore();
+  const setSelectedDate = useSelectedDateStore((state) => state.setSelectedDate);
+
+  const handleDaysInPastChange = () => {
+    const newValue = daysInPast === 2 ? 4 : 2;
+    setDaysInPast(newValue);
+    setSelectedDate(new Date().toISOString().split('T')[0]);
+  }
   
   if (!hasHydrated) { return null; }
 
@@ -45,14 +53,16 @@ export default function SettingsScreen() {
               title="Distance Units"
               right={<ChevronValue value={distanceUnit} onPress={() => setDistanceUnit(distanceUnit == 'LD' ? 'km' : 'LD')}/>}
             />
-            <SettingsRow 
+            <SettingsRow
               icon={<Ionicons name="calendar-outline" size={18} color="#4a9eff" />}
-              title="Days in the past"
-              right={<ChevronValue 
-                value={daysInPast}
-                onPress={() => 
-                  setDaysInPast(daysInPast == 2 ? 4 : 2)
-                } />}
+              title="Days in past"
+              subtitle={daysInPast === 2 ? 'Showing 2 days back' : 'Showing 4 days back'}
+              right={
+                <ChevronValue
+                  value={`${daysInPast} days`}
+                  onPress={handleDaysInPastChange}
+                />
+              }
             />
             <SettingsRow 
               icon={<Ionicons name="notifications-outline" size={18} color="#4a9eff" />}
