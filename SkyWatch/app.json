@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "NasaSkyWatch",
-    "slug": "NasaSkyWatch",
+    "name": "SkyWatch",
+    "slug": "SkyWatch",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -9,7 +9,7 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon",
-      "bundleIdentifier": "com.austinzurbuchen.NasaSkyWatch",
+      "bundleIdentifier": "com.austinzurbuchen.SkyWatch",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "UIBackgroundModes": ["processing", "remote-notification"],
