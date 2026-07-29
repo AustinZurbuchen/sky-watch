@@ -1,0 +1,51 @@
+import { useSettingsStore } from "@/store/settingsStore";
+import { AsteroidsByDate, WeekDay } from "@/types";
+import { format } from "date-fns";
+
+export const getDays = (asteroidsByDate: AsteroidsByDate[]) => {
+  const { daysInPast } = useSettingsStore.getState();
+  const curDate = new Date();
+  const beginDate = new Date();
+  beginDate.setDate(curDate.getDate() - daysInPast);
+
+  let days: WeekDay[] = [];
+  for (let i = 0; i <= 7; i++) {
+    const date = new Date(beginDate);
+    date.setDate(beginDate.getDate() + i);
+    const formattedDate = format(date, 'yyyy-MM-d');
+    const asteroidData = asteroidsByDate.find(item => item.date === formattedDate);
+    const hasHazardous = asteroidData?.hasHazardous ?? false;
+    const day: WeekDay = {
+      date: formattedDate,
+      dow: format(date, 'EEE'),
+      dom: format(date, 'd'),
+      hasHazard: hasHazardous,
+    };
+    days.push(day);
+  }
+  return days;
+}
+
+export const getAsteroidCount = (asteroidsByDate: AsteroidsByDate[]) => {
+  let count = 0;
+  for(let day of asteroidsByDate) {
+    count += day.asteroids.length
+  }
+  return count;
+}
+
+export const getHazardousCount = (asteroidsByDate: AsteroidsByDate[]) => {
+  let count = 0;
+  for(let day of asteroidsByDate) {
+    for(let asteroid of day.asteroids) {
+      if(asteroid.isHazardous) {
+        count++;
+      }
+    }
+  }
+  return count;
+}
+
+export const getTodaysCount = (today: string, asteroidsByDate: AsteroidsByDate[]) => {
+  return asteroidsByDate.find(item => item.date === today)?.asteroids.length || 0;
+}

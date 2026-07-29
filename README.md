@@ -1,2 +1,2 @@
-# nasa-sky-watch
+# sky-watch
 Beginning react native practice app
