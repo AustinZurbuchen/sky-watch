@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SkyWatch",
-    "slug": "SkyWatch",
+    "slug": "NasaSkyWatch",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/nasa_sky_watch_icon_fixed.png",
@@ -66,8 +66,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "SkyWatch"
+        "projectId": "b6ca5055-c440-484f-991b-0681c56b7974"
       }
-    }
+    },
+    "owner": "austinzurbuchen"
   }
 }
