@@ -1,7 +1,6 @@
 import '@/tasks/asteroidBackgroundTask';
 import { Stack } from 'expo-router';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useColorScheme } from 'react-native';
+import { DarkTheme, ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AnimatedSplashOverlay } from '@/components/animated/animatedIcon';
 import { useNotifications } from '@/hooks/useNotifications';
@@ -21,11 +20,10 @@ function NotificationProvider() {
 }
 
 export default function TabsLayout() {
-  const colorScheme = useColorScheme();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <ThemeProvider value={DarkTheme}>
         <AnimatedSplashOverlay />
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />

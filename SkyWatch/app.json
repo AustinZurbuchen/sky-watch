@@ -1,12 +1,12 @@
 {
   "expo": {
     "name": "SkyWatch",
-    "slug": "NasaSkyWatch",
+    "slug": "SkyWatch",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/nasa_sky_watch_icon_fixed.png",
-    "scheme": "nasaskywatch",
-    "userInterfaceStyle": "automatic",
+    "scheme": "skywatch",
+    "userInterfaceStyle": "dark",
     "ios": {
       "icon": "./assets/images/nasa_sky_watch_icon_fixed.png",
       "bundleIdentifier": "com.austinzurbuchen.SkyWatch",
@@ -23,7 +23,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#0a0d1a",
         "foregroundImage": "./assets/images/nasa_sky_watch_icon_fixed.png"
       },
       "predictiveBackGestureEnabled": false,
@@ -43,7 +43,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
+          "backgroundColor": "#0a0d1a",
           "android": {
             "image": "./assets/images/splash-icon.png",
             "imageWidth": 76
