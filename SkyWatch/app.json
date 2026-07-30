@@ -29,8 +29,11 @@
       "predictiveBackGestureEnabled": false,
       "permissions": [
         "RECEIVE_BOOT_COMPLETED",
+        "SCHEDULE_EXACT_ALARM",
+        "RECEIVE_BOOT_COMPLETED",
         "SCHEDULE_EXACT_ALARM"
-      ]
+      ],
+      "package": "com.austinzurbuchen.SkyWatch"
     },
     "web": {
       "output": "static",
@@ -53,7 +56,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/notification-icon.png",
+          "icon": "./assets/images/nasa_sky_watch_icon_fixed.png",
           "color": "#0a0d1a",
           "sounds": []
         }
@@ -66,8 +69,7 @@
     },
     "extra": {
       "router": {},
-      "eas": {
-      }
+      "eas": {}
     },
     "owner": "austinzurbuchen"
   }
