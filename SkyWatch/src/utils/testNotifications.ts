@@ -4,9 +4,8 @@ import * as Notifications from 'expo-notifications';
 export const triggerBackgroundTaskForTesting = async () => {
   try {
     await BackgroundTask.triggerTaskWorkerForTestingAsync();
-    console.log('Background task triggered');
   } catch (error) {
-    console.log('Background task not available in Expo Go - use a dev build');
+    console.log('Error with background task');
   }
 }
 

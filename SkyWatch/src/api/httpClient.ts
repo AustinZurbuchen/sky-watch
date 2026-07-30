@@ -13,7 +13,6 @@ export const httpClient = {
 
     const apiKey = useSettingsStore.getState().apiKeyOverride || DEFAULT_API_KEY;
     url.searchParams.append('api_key', apiKey);
-    console.log(url.toString());
 
     if (options?.params) {
       Object.entries(options.params).forEach(([key, value]) => {
@@ -24,7 +23,6 @@ export const httpClient = {
     const response = await fetch(url.toString());
 
     if (!response.ok) {
-      console.log(response.status);
       throw new Error(`HTTP error: ${response.status}`);
     }
 
