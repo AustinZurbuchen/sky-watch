@@ -1,4 +1,6 @@
-import { Pressable, ScrollView, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
+
+import { ScrollView } from '@/components/ui/scrollView';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
