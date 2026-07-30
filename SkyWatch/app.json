@@ -12,7 +12,10 @@
       "bundleIdentifier": "com.austinzurbuchen.SkyWatch",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
-        "UIBackgroundModes": ["processing", "remote-notification"],
+        "UIBackgroundModes": [
+          "processing",
+          "remote-notification"
+        ],
         "BGTaskSchedulerPermittedIdentifiers": [
           "com.expo.modules.backgroundtask.processing"
         ]
@@ -63,7 +66,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "b6ca5055-c440-484f-991b-0681c56b7974"
+        "projectId": "SkyWatch"
       }
     }
   }
