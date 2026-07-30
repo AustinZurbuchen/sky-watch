@@ -98,30 +98,6 @@ export default function SettingsScreen() {
               right={<ValueLabel value="NASA NeoWs" />} 
             />
           </SettingsSection>
-          {__DEV__ && (
-            <SettingsSection label="Developer Testing">
-              <SettingsRow
-                icon={<Ionicons name="refresh-outline" size={18} color='#4a9eff' />}
-                title="Trigger Background Task"
-                isLast={false}
-                right={
-                  <Pressable onPress={triggerBackgroundTaskForTesting}>
-                    <ThemedText style={{ color: '#4a9eff', fontSize: 13 }}>Run</ThemedText>
-                  </Pressable>
-                }
-              />
-              <SettingsRow
-                icon={<Ionicons name="notifications-outline" size={18} color="#4a9eff" />}
-                title="Test Notification (10s)"
-                isLast
-                right={
-                  <Pressable onPress={scheduleTestNotification}>
-                    <ThemedText style={{ color: '#4a9eff', fontSize: 13 }}>Send</ThemedText>
-                  </Pressable>
-                }
-              />
-            </SettingsSection>
-          )}
         </ScrollView>
       </SafeAreaView>
     </ThemedView>
