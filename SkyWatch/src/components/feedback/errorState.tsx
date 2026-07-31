@@ -8,7 +8,7 @@ interface ErrorStateProps {
 }
 
 export const ErrorState = ({
-  message = 'Something went wrong fetching asteroud data.',
+  message = 'Something went wrong fetching asteroid data.',
   onRetry,
 }: ErrorStateProps) => {
   return (

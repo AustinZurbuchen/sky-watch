@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "SkyWatch",
+    "name": "SkyWatchNEO",
     "slug": "SkyWatch",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,8 +13,7 @@
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "UIBackgroundModes": [
-          "processing",
-          "remote-notification"
+          "processing"
         ],
         "BGTaskSchedulerPermittedIdentifiers": [
           "com.expo.modules.backgroundtask.processing"
@@ -28,8 +27,6 @@
       },
       "predictiveBackGestureEnabled": false,
       "permissions": [
-        "RECEIVE_BOOT_COMPLETED",
-        "SCHEDULE_EXACT_ALARM",
         "RECEIVE_BOOT_COMPLETED",
         "SCHEDULE_EXACT_ALARM"
       ],
@@ -69,7 +66,9 @@
     },
     "extra": {
       "router": {},
-      "eas": {}
+      "eas": {
+        "projectId": "2278565a-4661-4f41-8ace-7b36d4b24614"
+      }
     },
     "owner": "austinzurbuchen"
   }

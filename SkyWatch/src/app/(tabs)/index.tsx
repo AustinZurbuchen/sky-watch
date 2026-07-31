@@ -27,7 +27,7 @@ export default function IndexScreen() {
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
-        <ThemedTitle title="Sky Watch" subtitle={getDateRange()} />
+        <ThemedTitle title="SkyWatchNEO" subtitle={getDateRange()} />
         <View style={styles.weekStrip}>
           <WeekStrip />
         </View>

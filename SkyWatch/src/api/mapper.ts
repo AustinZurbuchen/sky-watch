@@ -7,7 +7,7 @@ export const mapNeoEntryToAsteroidFlyby = (entry: NasaNeoEntry, date: string): A
     APO: 'Apollo',
     AMO: 'Amor',
     ATE: 'Aten',
-    IEO: 'Interier Earth Object',
+    IEO: 'Interior Earth Object',
   };
 
   return {

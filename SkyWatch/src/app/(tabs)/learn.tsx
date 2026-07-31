@@ -21,11 +21,11 @@ export default function LearnScreen() {
             badge='Potentially hazardous asteroid'
             isWarning
             title='What does "hazardous" mean?'
-            body="A potentially hazardous asteroid (PHA) is on that comes within 0.05 AU (about 7.5 million km) of Earth's orbit and is larger than 140 meters in diameter. This classification does not mean an impact is imminent - it means the object warrants close monitoring by scientists."
+            body="A potentially hazardous asteroid (PHA) is one that comes within 0.05 AU (about 7.5 million km) of Earth's orbit and is larger than 140 meters in diameter. This classification does not mean an impact is imminent - it means the object warrants close monitoring by scientists."
           />
           <LearnCard
             title='Lunar Distance (LD)'
-            body='Distances in Sky Watch are shown in Lunar Distances - the average gap between Earth and the Moon (384,400 km). A flyby at 1 LD is very close in astronomical terms, though still far from dangerous.'
+            body='Distances in SkyWatchNEO are shown in Lunar Distances - the average gap between Earth and the Moon (384,400 km). A flyby at 1 LD is very close in astronomical terms, though still far from dangerous.'
           />
           <LearnCard
             title='How close is too close?'
