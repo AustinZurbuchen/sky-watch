@@ -7,6 +7,31 @@ NASA's NeoWs API, with a watchlist, hazard notifications, and a learn section.
 
 The app lives in `SkyWatch/` — the repo root is just a wrapper. Run every command from `SkyWatch/`.
 
+## Start here: pick an agent
+
+This file is the index — project overview, commands, and the short version of every rule. The
+detailed playbooks live in [`agents/`](agents/README.md), one per area. **Read this file, then open
+the one agent file that matches your task.** Don't read all of them.
+
+| Task | Agent |
+|---|---|
+| NASA requests, response mapping, the API key, caching | [agents/api-manager-agent.md](agents/api-manager-agent.md) |
+| zustand stores, persistence, hydration | [agents/state-agent.md](agents/state-agent.md) |
+| Building or editing UI, styles, platform splits | [agents/component-agent.md](agents/component-agent.md) |
+| Routes, tabs, deep links, screen params | [agents/navigation-agent.md](agents/navigation-agent.md) |
+| Notification scheduling, permissions, background task | [agents/notifications-agent.md](agents/notifications-agent.md) |
+| Colors, spacing, fonts, `Themed*` primitives | [agents/theming-agent.md](agents/theming-agent.md) |
+| Lint/typecheck output, pre-commit verification | [agents/linting-agent.md](agents/linting-agent.md) |
+| Commits, branches, pull requests | [agents/pr-agent.md](agents/pr-agent.md) |
+| Builds, EAS, `app.json`, store submission | [agents/deployment-agent.md](agents/deployment-agent.md) |
+| "How should this be written here?" | [agents/best-practices-agent.md](agents/best-practices-agent.md) |
+| Reviewing a diff, hunting regressions, pre-release sweep | [agents/auditor-agent.md](agents/auditor-agent.md) |
+
+**Keep this file and `agents/` in sync.** They are one document split in two: the rule here is the
+summary, the agent file is the detail. Any change to one requires the matching change to the other,
+in the same commit — including adding a row above when you add an agent file. Each agent file ends
+with a **Sync** section naming what it mirrors here. See [agents/README.md](agents/README.md).
+
 ## Commands
 
 ```bash
@@ -44,7 +69,7 @@ our `camelCase` domain types) → `hooks/useAsteroids.ts` (react-query) → zust
 components read from the store.
 
 Keep those layers separate. Components never call `fetch` or touch NASA's raw shapes;
-only `mapper.ts` knows about `snake_case`.
+only `mapper.ts` knows about `snake_case`. Detail: [api-manager](agents/api-manager-agent.md).
 
 **API key:** `httpClient` resolves in this order — the user's own key from
 `useSettingsStore.getState().apiKeyOverride` (Settings → Advanced), then
@@ -60,8 +85,12 @@ extractable from the binary — treat this key as public, and never put a billab
 **Server state vs. client state:** react-query owns fetching/caching (`staleTime` 5min, `retry` 2,
 configured in `src/app/_layout.tsx`); zustand owns everything the UI reads. `useAsteroids` bridges
 them with an effect that pushes `query.data` into `asteroidStore`.
+Detail: [state](agents/state-agent.md).
 
 ## Conventions
+
+Detail: [component](agents/component-agent.md), [theming](agents/theming-agent.md),
+[best-practices](agents/best-practices-agent.md).
 
 **Imports** — always the `@/` alias (`@/types`, `@/constants/theme`), never `../../`. Types come
 from the `@/types` barrel, not the individual file.
@@ -90,13 +119,26 @@ In components select a single slice (`useFooStore((s) => s.bar)`); outside React
 `expo-router/unstable-native-tabs`, which has no web implementation — that's why the split exists.
 When you change one side, check the other.
 
-**Strings/formatting** — `date-fns` `format` for display dates; the canonical date key format from
-the NASA feed is `yyyy-MM-d`.
+**Strings/formatting** — `date-fns` `format` for display dates. The NASA feed keys
+`near_earth_objects` with **zero-padded `yyyy-MM-dd`** (`2026-08-05`), and `mapper.ts` passes those
+keys through unchanged, so every `date` in the store is padded. Build lookup keys with `'yyyy-MM-dd'`.
+
+⚠️ `src/utils/utils.ts:15`, `weekStrip.tsx:21-22`, and `index.tsx:35` currently use `'yyyy-MM-d'`,
+which does **not** pad the day — those keys never match the store on days 1–9 of a month. That's an
+open bug, not the convention. Tracked as B1 in the 2026-07-31 audit (`audits/`, gitignored).
 
 ## Gotchas
 
+Every entry here is expanded, with the failure it causes, in the owning agent file — and mirrored in
+the silent-failure table in [auditor](agents/auditor-agent.md).
+
 - Notifications and the background task (`src/tasks/asteroidBackgroundTask.ts`) only work in a dev
   client or release build, not Expo Go and not web.
+  ([notifications](agents/notifications-agent.md))
+- The background task must `await useSettingsStore.persist.rehydrate()` before reading settings, and
+  `src/app/_layout.tsx` must keep its side-effect import of the task file first. Both look removable;
+  removing either kills notifications silently. ([state](agents/state-agent.md),
+  [navigation](agents/navigation-agent.md))
 - `reactCompiler` and `typedRoutes` are on in `app.json`. Route names are type-checked.
 - Clean up `console.log` before committing — past commits have had to strip them.
 - `npx tsc --noEmit` still reports ~9 errors inside `node_modules` (expo-image, expo-asset,
@@ -111,3 +153,12 @@ the NASA feed is `yyyy-MM-d`.
 - The two `react-native/*` entries in `tsconfig.json` `paths` are a workaround, not decoration.
   Deleting them silently degrades every React Native component to an invalid JSX type and floods
   the typecheck with ~110 bogus errors. See the comment there before touching them.
+  ([linting](agents/linting-agent.md))
+
+- `EXPO_PUBLIC_*` values are inlined into the bundle and extractable from the shipped binary. The
+  NASA key is fine there; a billable secret never is. ([deployment](agents/deployment-agent.md))
+
+- Date keys are **`yyyy-MM-dd`** — that's what NASA returns and what the store holds. Building a key
+  with `'yyyy-MM-d'` silently misses every lookup for days 1–9. Three files still do this —
+  `src/utils/utils.ts:15`, `weekStrip.tsx:21-22`, `index.tsx:35`.
+  ([api-manager](agents/api-manager-agent.md))
