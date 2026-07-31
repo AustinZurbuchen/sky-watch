@@ -37,6 +37,9 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# audit / review reports — point-in-time snapshots, regenerable, not part of the app
+audits/
+
 example
 
 # generated native folders
