@@ -77,30 +77,46 @@ matters.
 gh pr create --base master --head dev --title "..." --body "..."
 ```
 
-Body structure:
+### Write it for a human who has 30 seconds
+
+A PR body is a summary, not a report. The reviewer already has the diff — the body's job is to tell
+them what changed, why, and what to watch out for, fast enough that they actually read it.
+
+**Target: under 200 words.** One screen, no scrolling. If it doesn't fit, the branch is probably
+doing too much.
+
+Rules that keep it readable:
+
+- **Lead with the change in one or two sentences.** No heading above it, no preamble.
+- **Prose over structure.** Use a heading only when there are genuinely 3+ sections; a short PR needs
+  none. Never use a heading with one line under it.
+- **Don't restate the diff.** "Adds `foo.ts`, adds `bar.ts`, adds `baz.ts`" is what the Files tab is
+  for. Say what the group of files *does*.
+- **One line per point.** No nested bullets, no bullet lists longer than four items.
+- **Verification is one line**, not a checklist, unless something notable was skipped — then say what
+  and why in that same line.
+- **Bold the things that bite**, and only those: rebuild required, new env var, migration needed.
+- **Cut every sentence that would be true of any PR.** "This improves maintainability" tells the
+  reviewer nothing.
+
+Template for a routine change:
 
 ```markdown
-## What
-One or two sentences on the change.
+<One or two sentences: what changed and why.>
 
-## Why
-The problem or the ask.
+<Optional: 2-4 bullets, only for things the diff doesn't make obvious —
+a non-obvious choice, a surprise found along the way, a deliberate omission.>
 
-## How
-Notable implementation choices, anything a reviewer would otherwise have to reverse-engineer.
+**Verification** — lint and typecheck clean, ran on iOS. <Or what was skipped, and why.>
 
-## Verification
-- [ ] `npm run lint` clean
-- [ ] `npx tsc --noEmit | grep '^src/'` clean
-- [ ] Ran on iOS <simulator/device>
-- [ ] Ran on Android / web (if touched)
-- [ ] Notifications verified in a dev client (if touched)
-
-## Notes
-Requires a native rebuild (app.json changed) / needs an EAS env var / etc.
+**Notes** — <Only if true: needs a rebuild / needs an EAS env var / needs a store migration.>
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ```
+
+Reach for the longer form — separate What / Why / How / Verification headings — only when the change
+is genuinely large or contentious: an architecture change, a migration, anything where a reviewer
+needs the reasoning laid out before they can judge the code. That is the exception, not the default.
 
 Flag these loudly when they apply, because they break things silently for anyone else building:
 
@@ -125,7 +141,8 @@ tokens used, no `console.log`, and docs in sync.
 - [ ] App actually run for the affected platform
 - [ ] No `ios/`, `android/`, or `.env` in the diff
 - [ ] Commit message says what and why, with the `Co-Authored-By` trailer
-- [ ] PR body has What / Why / How / Verification, plus rebuild or env-var warnings
+- [ ] PR body under ~200 words, leads with the change, no heading with one line under it
+- [ ] Rebuild / env-var / migration warnings called out in bold if they apply
 - [ ] `CLAUDE.md` and `agents/` updated together if behavior or conventions changed
 
 ## Sync
