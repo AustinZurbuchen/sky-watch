@@ -8,9 +8,8 @@ import { ThemedTitle } from '@/components/theme/themedTitle';
 import { WeekStrip } from '@/components/week/weekStrip';
 import { WeekStats } from '@/components/week/weekStats';
 import { FlyBy } from '@/components/flyby/flyby';
-import { getAsteroidCount, getHazardousCount, getTodaysCount } from '@/utils/utils';
+import { getAsteroidCount, getHazardousCount, getTodaysCount, toDateKey } from '@/utils/utils';
 import { useAsteroidStore } from '@/store/asteroidStore';
-import { format } from 'date-fns';
 import { useSettingsStore } from '@/store/settingsStore';
 
 export default function IndexScreen() {
@@ -32,7 +31,7 @@ export default function IndexScreen() {
           <WeekStrip />
         </View>
         <View style={styles.weekStats}>
-          <WeekStats thisWeek={getAsteroidCount(asteroidsByDate)} hazardous={getHazardousCount(asteroidsByDate)} today={getTodaysCount(format(new Date, 'yyyy-MM-d'), asteroidsByDate)}/>
+          <WeekStats thisWeek={getAsteroidCount(asteroidsByDate)} hazardous={getHazardousCount(asteroidsByDate)} today={getTodaysCount(toDateKey(new Date()), asteroidsByDate)}/>
         </View>
         <View style={styles.flybyContainer}>
           <FlyBy />

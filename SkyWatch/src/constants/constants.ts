@@ -2,6 +2,13 @@ import { AsteroidFlyby, WeekDay } from "@/types";
 
 export const MonthAbr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
+// The one spelling of a date key. NASA keys `near_earth_objects` with zero-padded
+// dates ("2026-08-05") and mapper.ts passes those through untouched, so every
+// `date` in the store is padded — and every key we build to look one up must be
+// too. date-fns 'd' does NOT pad, so 'yyyy-MM-d' yields "2026-08-5", which matches
+// nothing on days 1-9 of a month. Always format through this constant.
+export const DATE_KEY_FORMAT = 'yyyy-MM-dd';
+
 export const Days: WeekDay[] = [
   { date: '2026-05-19', dow: 'Mon', dom: '19', hasHazard: false },
   { date: '2026-05-20', dow: 'Tue', dom: '20', hasHazard: true },

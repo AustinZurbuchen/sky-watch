@@ -45,6 +45,11 @@ export const scheduleAsteroidNotifications = async (
   await cancelAllNotifications();
 
   for (const group of asteroidsByDate) {
+    // The setting is "Hazard notifications" — only fire on days that actually have
+    // one. Notifying on quiet days too (with a body reading "none hazardous") is
+    // the fastest way to get the whole category muted.
+    if (!group.hasHazardous) continue;
+
     const { title, body } = buildNotificationContent(group);
 
     const [year, month, day] = group.date.split('-').map(Number);

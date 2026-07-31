@@ -1,10 +1,9 @@
 import { WeekDay } from "@/types";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
 import { DayPill } from "../daypill/dayPill";
-import { getDays } from "@/utils/utils";
+import { getDays, toDateKey } from "@/utils/utils";
 import { useAsteroidStore } from "@/store/asteroidStore";
-import { format } from "date-fns";
 import { useSelectedDateStore } from "@/store/selectedDateStore";
 
 const ITEM_WIDTH = 68;
@@ -18,10 +17,17 @@ export const WeekStrip = () => {
   const days = getDays(asteroidsByDate);
 
   useEffect(() => {
-    setSelectedDate(format(new Date, 'yyyy-MM-d'));
-    const todayIndex = days.findIndex(d => d.date === format(new Date, 'yyyy-MM-d'));
-    if (todayIndex !== -1) {
-      listRef.current?.scrollToIndex({ index: 0, animated: false});
+    // Default to today only if nothing has chosen a date yet. A notification tap
+    // sets the date and *then* navigates here, so overwriting unconditionally
+    // would discard it on a cold start and land the user on the wrong day.
+    const today = toDateKey(new Date());
+    if (!useSelectedDateStore.getState().selectedDate) {
+      setSelectedDate(today);
+    }
+
+    const index = days.findIndex((d) => d.date === useSelectedDateStore.getState().selectedDate);
+    if (index !== -1) {
+      listRef.current?.scrollToIndex({ index, animated: false });
     }
   }, []);
 

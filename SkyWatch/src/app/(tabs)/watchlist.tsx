@@ -46,6 +46,7 @@ export default function WatchlistScreen() {
               ref={listRef}
               data={savedAsteroids}
               showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.listContent}
               keyExtractor={(item) => item.id}
               renderItem={renderItem}
               getItemLayout={getItemLayout}
