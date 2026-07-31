@@ -47,8 +47,10 @@
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
+    "ios:release": "expo run:ios --configuration Release",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "screenshots:flatten": "./scripts/flatten-screenshots.swift ../screenshots/_originals-with-alpha '../screenshots/1.0.0/iPhone 16 Pro Max'"
   },
   "private": true
 }
