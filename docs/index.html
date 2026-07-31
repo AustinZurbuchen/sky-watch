@@ -108,16 +108,23 @@
   kilometers. A flyby at 1 LD is very close in astronomical terms but still enormously far away.
   You can switch to kilometers in Settings.</p>
 
-  <h3>The app says I've hit a rate limit, or data won't load</h3>
-  <p>By default SkyWatchNEO uses NASA's shared demo API key, which is limited to a small number of
-  requests per hour across everyone using it. If you're seeing errors, get your own free key — it
-  takes about a minute, no payment required:</p>
+  <h3>Flybys won't load</h3>
+  <p>SkyWatchNEO reads live data from NASA, so it needs a connection. If the list is empty or you
+  see "Unable to load", check that you're online and pull to refresh — NASA's service is
+  occasionally down for maintenance, and the app will pick up again once it returns.</p>
+
+  <h3>Can I use my own NASA API key?</h3>
+  <p>Yes, though you shouldn't need to. The app ships with its own key and there's nothing to set
+  up. The option exists for anyone who wants their requests to go through their own key, or in the
+  unlikely event the app's shared allowance runs short at a busy moment.</p>
+  <p>Keys are free and take about a minute:</p>
   <ul>
     <li>Go to <a href="https://api.nasa.gov">api.nasa.gov</a> and fill in the short signup form</li>
     <li>Your key arrives by email immediately</li>
-    <li>In SkyWatchNEO, open <strong>Settings → NASA API Key</strong> and paste it in</li>
+    <li>In SkyWatchNEO, open <strong>Settings → Advanced → NASA API Key</strong> and paste it in</li>
   </ul>
-  <p>The key is stored only on your device and is used solely to make requests to NASA's API.</p>
+  <p>Your key is stored only on your device and is used solely to make requests to NASA's API.
+  Clear the field at any time to go back to the built-in key.</p>
 
   <h3>How do I turn on notifications?</h3>
   <p>Open <strong>Settings</strong> and enable hazard notifications. iOS will ask for permission the
