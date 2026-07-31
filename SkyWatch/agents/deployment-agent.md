@@ -132,7 +132,59 @@ user before running any `eas build` or `eas submit`.**
 9. [ ] App Store privacy answers match reality: the app has no accounts and no analytics; NASA
        requests carry no user data; the watchlist and settings are stored **on device** only
 10. [ ] `ITSAppUsesNonExemptEncryption: false` still correct (true unless you added crypto)
-11. [ ] Screenshots current (`screenshots/` at the repo root)
+11. [ ] Screenshots current, and taken from a **Release** build — see below
+
+## Screenshots
+
+Live in `screenshots/` at the **repo root**, not under `SkyWatch/`:
+
+```
+screenshots/
+  1.0.0/iPhone 16 Pro Max/     the flattened set you upload — one folder per version + device
+  _originals-with-alpha/       raw captures, regenerable, gitignored
+```
+
+Three rules, each of which has already gone wrong once:
+
+**1. Capture from a Release build.** A debug build renders the `__DEV__` "Developer Testing" section
+in Settings (Trigger Background Task / Test Notification). That is not something to ship to review.
+
+```bash
+npm run ios:release
+```
+
+It installs over the same bundle id, so any watchlist/settings state you've staged survives.
+
+**2. Reset app state first.** Defaults are LD units, hazard notifications off, no API key override.
+Stage a watchlist with a mix of Safe and Hazardous entries, and pick a day whose list fills the
+frame — an empty-looking screen undersells the app.
+
+**3. Flatten the alpha channel.** App Store Connect rejects PNGs carrying alpha, and every
+`simctl` capture has one.
+
+```bash
+npm run screenshots:flatten
+```
+
+That runs `scripts/flatten-screenshots.swift`, which composites onto `Colors.dark.background` and
+writes opaque RGB. It's Swift/CoreGraphics because this machine has neither ImageMagick nor Pillow,
+and `sips` **cannot** remove an alpha channel — `--padToHeightWidth` re-encodes but keeps it. Verify:
+
+```bash
+sips -g hasAlpha "screenshots/1.0.0/iPhone 16 Pro Max/"*.png
+```
+
+The npm script's output path is pinned to `1.0.0`; bump it, or call the script directly with an
+explicit input and output directory, when the version changes.
+
+**Capturing:** `xcrun simctl io <udid> screenshot <path>` gives native 1320×2868 for iPhone 16 Pro
+Max — the 6.9" size App Store Connect wants. Note macOS blocks `simctl` writing into `~/Documents`,
+so capture to `/tmp` and copy the files into place. `ios.supportsTablet` is unset (false), so no iPad
+screenshots are required.
+
+**Keep them in step with the app.** The 1.0.0 set had to be retaken because it still showed the old
+"Sky Watch" title from before the rename to SkyWatchNEO — a listing whose screenshots disagree with
+its name invites a review question.
 
 ## Checklist
 
@@ -140,6 +192,7 @@ user before running any `eas build` or `eas submit`.**
 - [ ] Rebuilt after any `app.json` change, and verified on device
 - [ ] EAS env vars verified for the profile being built
 - [ ] `slug`, bundle id, package, and EAS project id untouched
+- [ ] Screenshots from a Release build, alpha flattened, `hasAlpha: no` verified
 - [ ] User confirmed before any build or submit
 
 ## Sync

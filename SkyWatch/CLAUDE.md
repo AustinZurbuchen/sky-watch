@@ -35,13 +35,19 @@ with a **Sync** section naming what it mirrors here. See [agents/README.md](agen
 ## Commands
 
 ```bash
-npm start          # expo start (dev server)
-npm run ios        # expo run:ios — native build, required for notifications/background task
-npm run android    # expo run:android
-npm run web        # expo start --web
-npm run lint       # expo lint (eslint-config-expo flat config)
-npx tsc --noEmit   # typecheck — no test suite exists
+npm start           # expo start (dev server)
+npm run ios         # expo run:ios — native build, required for notifications/background task
+npm run ios:release # release build — no __DEV__ UI; use this for App Store screenshots
+npm run android     # expo run:android
+npm run web         # expo start --web
+npm run lint        # expo lint (eslint-config-expo flat config)
+npx tsc --noEmit    # typecheck — no test suite exists
+
+npm run screenshots:flatten   # strip alpha from screenshots — App Store rejects it
 ```
+
+Screenshots live in `screenshots/` at the **repo root** and must be captured from a Release build,
+then alpha-flattened. Detail: [deployment](agents/deployment-agent.md).
 
 There is no test runner. Verify changes by running the app.
 
