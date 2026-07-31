@@ -4,9 +4,11 @@ import { Colors } from "@/constants/theme";
 import { useAsteroidStore } from "@/store/asteroidStore";
 import { useSettingsStore } from "@/store/settingsStore";
 import { useWatchlistStore } from "@/store/watchlistStore";
+import { AsteroidFlyby } from "@/types";
 import { formatDistance } from "@/utils/utils";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
 import { Pressable, ScrollView, View, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -18,13 +20,37 @@ export default function AsteroidDetailScreen() {
   const addAsteroid = useWatchlistStore((state) => state.addAsteroid);
   const removeAsteroid = useWatchlistStore((state) => state.removeAsteroid);
 
-  // Fall back to the watchlist: it stores whole asteroids, not ids, precisely so a
-  // saved flyby stays readable after its date drops out of the 8-day feed window.
-  const asteroid =
-    asteroidsByDate.flatMap((group) => group.asteroids).find((a) => a.id === id) ??
-    savedAsteroids.find((a) => a.id === id);
+  // Resolve from the feed first, then fall back to the watchlist — it stores whole
+  // asteroids rather than ids precisely so a saved flyby stays readable after its
+  // date drops out of the 8-day feed window.
+  //
+  // Hold the first one we resolve. When the watchlist is the only source it is also
+  // what renders this screen, so unsaving would empty the lookup mid-interaction and
+  // swap the page for "not found" under the user's finger.
+  const [asteroid, setAsteroid] = useState<AsteroidFlyby | undefined>(
+    () =>
+      asteroidsByDate.flatMap((group) => group.asteroids).find((a) => a.id === id) ??
+      savedAsteroids.find((a) => a.id === id)
+  );
 
-  if (!asteroid) return <ErrorState message={`Asteroid ${id} not found`} />;
+  // Cold start: the watchlist rehydrates and the feed lands after the first render,
+  // so a deep link can arrive before either source has the asteroid.
+  useEffect(() => {
+    if (asteroid) return;
+    const found =
+      asteroidsByDate.flatMap((group) => group.asteroids).find((a) => a.id === id) ??
+      savedAsteroids.find((a) => a.id === id);
+    if (found) setAsteroid(found);
+  }, [asteroid, asteroidsByDate, savedAsteroids, id]);
+
+  if (!asteroid) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <DetailHeader />
+        <ErrorState message={`Asteroid ${id} not found`} />
+      </SafeAreaView>
+    );
+  }
 
   const saved = savedAsteroids.some((a) => a.id === asteroid.id);
 
@@ -43,12 +69,7 @@ export default function AsteroidDetailScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.header}>
-          <Pressable onPress={(() => router.back())} style={styles.backBtn}>
-            <Ionicons name="chevron-back" size={22} color="#aab0cc" />
-          </Pressable>
-          <ThemedText style={styles.headerTitle}>Asteroid Detail</ThemedText>
-        </View>
+        <DetailHeader />
 
         <View style={styles.nameRow}>
           <View style={styles.nameLeft}>
@@ -96,6 +117,25 @@ export default function AsteroidDetailScreen() {
     </SafeAreaView>
   );
 }
+
+/**
+ * Rendered by both the loaded screen and the "not found" state — without it the
+ * error path drew full-bleed with no back button, leaving the user stranded on
+ * Android, where `predictiveBackGestureEnabled` is off.
+ */
+const DetailHeader = () => (
+  <View style={styles.header}>
+    <Pressable
+      onPress={() => router.back()}
+      style={styles.backBtn}
+      accessibilityRole="button"
+      accessibilityLabel="Go back"
+    >
+      <Ionicons name="chevron-back" size={22} color="#aab0cc" />
+    </Pressable>
+    <ThemedText style={styles.headerTitle}>Asteroid Detail</ThemedText>
+  </View>
+);
 
 interface DetailRowProps {
   label: string;

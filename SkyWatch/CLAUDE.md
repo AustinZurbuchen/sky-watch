@@ -121,11 +121,18 @@ When you change one side, check the other.
 
 **Strings/formatting** — `date-fns` `format` for display dates. The NASA feed keys
 `near_earth_objects` with **zero-padded `yyyy-MM-dd`** (`2026-08-05`), and `mapper.ts` passes those
-keys through unchanged, so every `date` in the store is padded. Build lookup keys with `'yyyy-MM-dd'`.
+keys through unchanged, so every `date` in the store is padded.
 
-⚠️ `src/utils/utils.ts:15`, `weekStrip.tsx:21-22`, and `index.tsx:35` currently use `'yyyy-MM-d'`,
-which does **not** pad the day — those keys never match the store on days 1–9 of a month. That's an
-open bug, not the convention. Tracked as B1 in the 2026-07-31 audit (`audits/`, gitignored).
+Never spell that format inline. Build every lookup key with `toDateKey()` from `@/utils/utils`, which
+formats through the single `DATE_KEY_FORMAT` constant in `@/constants/constants`. `date-fns` `'d'`
+does **not** pad the day, so a hand-written `'yyyy-MM-d'` yields `2026-08-5` and matches nothing on
+days 1–9 of a month — that was a real bug, fixed by routing all three call sites through one
+constant.
+
+The same applies to the feed window: `getFeedWindow()` in `@/utils/utils` is the single source for
+the 8-day range, shared by `useAsteroids` and the background task. It formats in local time on
+purpose — `toISOString()` is UTC and lands on a different calendar day for evening users west of
+Greenwich.
 
 ## Gotchas
 
@@ -158,7 +165,6 @@ the silent-failure table in [auditor](agents/auditor-agent.md).
 - `EXPO_PUBLIC_*` values are inlined into the bundle and extractable from the shipped binary. The
   NASA key is fine there; a billable secret never is. ([deployment](agents/deployment-agent.md))
 
-- Date keys are **`yyyy-MM-dd`** — that's what NASA returns and what the store holds. Building a key
-  with `'yyyy-MM-d'` silently misses every lookup for days 1–9. Three files still do this —
-  `src/utils/utils.ts:15`, `weekStrip.tsx:21-22`, `index.tsx:35`.
+- Date keys are **`yyyy-MM-dd`** — that's what NASA returns and what the store holds. Use
+  `toDateKey()`; a hand-written `'yyyy-MM-d'` silently misses every lookup for days 1–9.
   ([api-manager](agents/api-manager-agent.md))

@@ -72,7 +72,8 @@ nothing, so a reviewer has to catch them.
 | `import '@/tasks/asteroidBackgroundTask'` still first in `src/app/_layout.tsx` | Side-effect import runs `defineTask`. Removed → background execution dies entirely, no error. |
 | `await useSettingsStore.persist.rehydrate()` still first in the task's `try` | Removed → task reads default `hazardNotifications: false` and no-ops forever. |
 | `react-native/*` paths still in `tsconfig.json` | Removed → ~110 bogus JSX errors app-wide. |
-| Date keys zero-padded `yyyy-MM-dd` — flag any `'yyyy-MM-d'` | NASA returns padded keys and the store holds them verbatim. An unpadded key misses every `.find()` on days 1–9 → empty flyby list, dead hazard dots, `0` in the Today stat. Three sites are currently wrong (B1). `grep -rn "yyyy-MM-d'" src/` |
+| Date keys built with `toDateKey()` — flag any inline `'yyyy-MM-d'` | NASA returns padded keys and the store holds them verbatim. An unpadded key misses every `.find()` on days 1–9 → empty flyby list, dead hazard dots, `0` in the Today stat. Fixed by routing through one constant; keep it that way. `grep -rn "yyyy-MM-d'" src/` |
+| Screen resolves an entity from a store it also mutates | If the store is the only source, mutating it (e.g. unsaving a watchlist item) empties the lookup and the screen replaces itself with an error mid-interaction. Hold the resolved value in state. |
 | New `EXPO_PUBLIC_*` var added to EAS env | Missing → release silently falls back to `DEMO_KEY` (~10 req/hr per IP) and the app fails for real users while working locally. |
 | `.web.tsx` counterpart updated | Diverged pair typechecks fine, breaks on one platform only. |
 | New tab added to **both** `appTabs.tsx` and `appTabs.web.tsx` | Same. |
