@@ -15,6 +15,7 @@ import { useSettingsStore } from '@/store/settingsStore';
 import { scheduleTestNotification, triggerBackgroundTaskForTesting } from '@/utils/testNotifications';
 import { ThemedText } from '@/components/theme/themedText';
 import { useSelectedDateStore } from '@/store/selectedDateStore';
+import { toDateKey } from '@/utils/utils';
 
 export default function SettingsScreen() {
   const {
@@ -33,7 +34,9 @@ export default function SettingsScreen() {
   const handleDaysInPastChange = () => {
     const newValue = daysInPast === 2 ? 4 : 2;
     setDaysInPast(newValue);
-    setSelectedDate(new Date().toISOString().split('T')[0]);
+    // Local, via the shared formatter — `toISOString()` is UTC and would set a key
+    // the (locally built) week strip has no pill for.
+    setSelectedDate(toDateKey(new Date()));
   }
   
   if (!hasHydrated) { return null; }
@@ -51,7 +54,7 @@ export default function SettingsScreen() {
             <SettingsRow 
               icon={<MaterialCommunityIcons name="ruler" size={18} color="#4a9eff" />}
               title="Distance Units"
-              right={<ChevronValue value={distanceUnit} onPress={() => setDistanceUnit(distanceUnit == 'LD' ? 'km' : 'LD')}/>}
+              right={<ChevronValue value={distanceUnit} onPress={() => setDistanceUnit(distanceUnit === 'LD' ? 'km' : 'LD')}/>}
             />
             <SettingsRow
               icon={<Ionicons name="calendar-outline" size={18} color="#4a9eff" />}

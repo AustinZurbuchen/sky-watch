@@ -2,7 +2,9 @@ import { ErrorState } from "@/components/feedback";
 import { ThemedText } from "@/components/theme/themedText";
 import { Colors } from "@/constants/theme";
 import { useAsteroidStore } from "@/store/asteroidStore";
+import { useSettingsStore } from "@/store/settingsStore";
 import { useWatchlistStore } from "@/store/watchlistStore";
+import { formatDistance } from "@/utils/utils";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { Pressable, ScrollView, View, StyleSheet } from "react-native";
@@ -11,21 +13,26 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function AsteroidDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const asteroidsByDate = useAsteroidStore((state) => state.asteroidsByDate);
-  const { isSaved, addAsteroid, removeAsteroid } = useWatchlistStore();
+  const distanceUnit = useSettingsStore((state) => state.distanceUnit);
+  const savedAsteroids = useWatchlistStore((state) => state.savedAsteroids);
+  const addAsteroid = useWatchlistStore((state) => state.addAsteroid);
+  const removeAsteroid = useWatchlistStore((state) => state.removeAsteroid);
 
-  const asteroid = asteroidsByDate.flatMap((group) => group.asteroids).find((a) => a.id === id);
+  // Fall back to the watchlist: it stores whole asteroids, not ids, precisely so a
+  // saved flyby stays readable after its date drops out of the 8-day feed window.
+  const asteroid =
+    asteroidsByDate.flatMap((group) => group.asteroids).find((a) => a.id === id) ??
+    savedAsteroids.find((a) => a.id === id);
 
   if (!asteroid) return <ErrorState message={`Asteroid ${id} not found`} />;
 
-  let saved = isSaved(id);
+  const saved = savedAsteroids.some((a) => a.id === asteroid.id);
 
   const handleBookmark = () => {
     if (saved) {
       removeAsteroid(asteroid.id);
-      saved = !saved;
     } else {
       addAsteroid(asteroid);
-      saved = !saved;
     }
   }
 
@@ -70,7 +77,7 @@ export default function AsteroidDetailScreen() {
         <View style={styles.detailCard}>
           <DetailRow label="Date" value={asteroid.date} />
           <DetailRow label="Time (UTC)" value={asteroid.closestApproachUtc} />
-          <DetailRow label="Miss Distance" value={`${asteroid.missDistanceLD} LD`} />
+          <DetailRow label="Miss Distance" value={formatDistance(asteroid.missDistanceLD, distanceUnit)} />
           <DetailRow label="Velocity" value={`${asteroid.velocityKms} km/s`} isLast />
         </View>
 

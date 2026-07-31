@@ -2,8 +2,12 @@ import { AsteroidCardProps } from "@/types"
 import { Pressable, StyleSheet, View } from "react-native"
 import { ThemedText } from "../theme/themedText"
 import { Colors } from '@/constants/theme';
+import { useSettingsStore } from "@/store/settingsStore";
+import { formatDistance } from "@/utils/utils";
 
 export const AsteroidCard = ({ asteroid, onPress }: AsteroidCardProps) => {
+  const distanceUnit = useSettingsStore((state) => state.distanceUnit);
+
   return (
     <Pressable
       onPress={onPress}
@@ -23,7 +27,7 @@ export const AsteroidCard = ({ asteroid, onPress }: AsteroidCardProps) => {
         <ThemedText style={styles.subName} >Closest: {asteroid.closestApproachUtc} · {asteroid.diameterMaxM}m est.</ThemedText>
       </View>
       <View style={styles.right}>
-        <ThemedText style={styles.distance} >{asteroid.missDistanceLD} LD</ThemedText>
+        <ThemedText style={styles.distance} >{formatDistance(asteroid.missDistanceLD, distanceUnit)}</ThemedText>
         <View style={[styles.badge, asteroid.isHazardous ? styles.badgeHazardous : styles.badgeSafe]}>
           <ThemedText style={[styles.badgeText, asteroid.isHazardous ? styles.badgeTextHazardous : styles.badgeTextSafe]}>
             {asteroid.isHazardous ? 'Hazardous' : 'Safe'}

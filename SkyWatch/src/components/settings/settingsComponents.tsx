@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, TextInput, View } from "react-native"
 import { ThemedText } from "../theme/themedText"
 import { Ionicons } from "@expo/vector-icons";
+import { Fonts } from "@/constants/theme";
 
 interface ChevronProps {
   value: string | number;
@@ -67,7 +68,15 @@ export const ValueLabel = ({ value }: { value: string }) => (
 export const ApiKeyInput = ({ value, onChange }: { value: string; onChange: (v: string) => void }) => (
   <TextInput
     value={value}
-    onChangeText={onChange}
+    // NASA keys are case-sensitive. Without these the default `autoCapitalize:
+    // 'sentences'` uppercases the first character as it's typed and autocorrect
+    // mangles the rest, so the key silently 403s on the one screen that exists to
+    // get users past a rate limit. Trim guards a pasted value's stray whitespace.
+    onChangeText={(text) => onChange(text.trim())}
+    autoCapitalize="none"
+    autoCorrect={false}
+    autoComplete="off"
+    spellCheck={false}
     placeholder="DEMO_KEY"
     placeholderTextColor="#4a5070"
     style={{
@@ -80,7 +89,7 @@ export const ApiKeyInput = ({ value, onChange }: { value: string; onChange: (v: 
       paddingHorizontal: 10,
       paddingVertical: 6,
       width: 120,
-      fontFamily: 'monospace',
+      fontFamily: Fonts.mono,
     }}
   />
 )

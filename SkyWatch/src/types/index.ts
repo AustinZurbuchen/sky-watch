@@ -3,3 +3,4 @@ export * from './navigation';
 export * from './daypill';
 export * from './learn';
 export * from './nasa';
+export * from './settings';

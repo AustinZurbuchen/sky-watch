@@ -7,20 +7,9 @@ import {
   scheduleAsteroidNotifications,
   requestNotificationPermission,
 } from '@/utils/notifications';
+import { getFeedWindow } from '@/utils/utils';
 
 export const ASTEROID_BACKGROUND_TASK = 'ASTEROID_BACKGROUND_TASK';
-
-const getWeekDates = () => {
-  const { daysInPast } = useSettingsStore.getState();
-  const start = new Date();
-  start.setDate(start.getDate() - daysInPast);
-  const end = new Date(start);
-  end.setDate(start.getDate() + 7);
-  return {
-    startDate: start.toISOString().split('T')[0],
-    endDate: end.toISOString().split('T')[0],
-  };
-};
 
 TaskManager.defineTask(ASTEROID_BACKGROUND_TASK, async () => {
   try {
@@ -36,7 +25,9 @@ TaskManager.defineTask(ASTEROID_BACKGROUND_TASK, async () => {
       return BackgroundTask.BackgroundTaskResult.Success;
     }
 
-    const { startDate, endDate } = getWeekDates();
+    const { startDate, endDate } = getFeedWindow(
+      useSettingsStore.getState().daysInPast
+    );
     const asteroidsByDate = await getNearEarthObjects(startDate, endDate);
 
     useAsteroidStore.getState().setAsteroidsByDate(asteroidsByDate);

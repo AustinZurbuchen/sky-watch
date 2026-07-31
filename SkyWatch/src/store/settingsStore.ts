@@ -1,9 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-
-type DistanceUnit = 'LD' | 'km';
-type DaysPast = 2 | 4;
+import { DaysPast, DistanceUnit } from '@/types';
 
 interface SettingsStore {
   distanceUnit: DistanceUnit;
