@@ -56,7 +56,7 @@ export const useNotifications = () => {
       });
     } else {
       Notifications.cancelAllScheduledNotificationsAsync();
-      unregisterBackgroundTask();  // add this — was missing before
+      unregisterBackgroundTask();
     }
   }, [hazardNotifications]);
 

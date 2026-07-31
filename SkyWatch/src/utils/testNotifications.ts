@@ -5,7 +5,7 @@ export const triggerBackgroundTaskForTesting = async () => {
   try {
     await BackgroundTask.triggerTaskWorkerForTestingAsync();
   } catch (error) {
-    console.log('Error with background task');
+    console.error('Failed to trigger background task:', error);
   }
 }
 
@@ -21,5 +21,4 @@ export const scheduleTestNotification = async () => {
       seconds: 10,
     },
   });
-  console.log('Test notification fires in 10 seconds');
 }

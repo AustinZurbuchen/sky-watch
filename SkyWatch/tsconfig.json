@@ -8,6 +8,18 @@
       ],
       "@/assets/*": [
         "./assets/*"
+      ],
+      // react-native 0.81's own .d.ts files import these paths, but its
+      // package.json exports map blocks them ("./types/*": null), so under
+      // moduleResolution "bundler" they silently resolve to nothing. That
+      // degrades View/Text/FlatList into unusable JSX types across the app.
+      // These two entries point TypeScript at the real declaration files.
+      // Remove them once react-native ships a fixed exports map.
+      "react-native/types/*": [
+        "./node_modules/react-native/types/*"
+      ],
+      "react-native/node_modules/*": [
+        "./node_modules/react-native/node_modules/*"
       ]
     },
     "jsx": "react-native"

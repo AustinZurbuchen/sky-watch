@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkyWatchNEO — Support</title>
+<meta name="description" content="Support and FAQ for SkyWatchNEO, an iOS app for tracking near-Earth asteroid flybys using NASA data.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0d1a'/><circle cx='50' cy='52' r='26' fill='%23253c5e'/><ellipse cx='50' cy='52' rx='42' ry='11' fill='none' stroke='%234a9eff' stroke-width='4'/></svg>">
+<style>
+  :root {
+    --bg: #0a0d1a;
+    --surface: #111627;
+    --border: #1e2340;
+    --text: #ffffff;
+    --muted: #aab0cc;
+    --accent: #4a9eff;
+    --hazard: #ff6060;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0 24px 80px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header { padding: 64px 0 40px; border-bottom: 1px solid var(--border); }
+  h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 8px; font-weight: 700; }
+  .sub { color: var(--muted); margin: 0; font-size: 1.05rem; }
+  h2 { font-size: 1.3rem; margin: 48px 0 8px; font-weight: 600; }
+  h3 { font-size: 1.02rem; margin: 28px 0 6px; font-weight: 600; }
+  p { margin: 0 0 14px; color: #d7dbe8; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 22px;
+    margin: 20px 0;
+  }
+  .contact { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 12px; }
+  ul { padding-left: 20px; color: #d7dbe8; margin: 0 0 14px; }
+  li { margin-bottom: 6px; }
+  code {
+    background: #1a1f36;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 1px 6px;
+    font-size: 0.9em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.87rem;
+  }
+  footer p { color: var(--muted); }
+  .disclaimer { border-left: 3px solid var(--hazard); padding-left: 16px; margin: 24px 0; }
+  .disclaimer p { color: var(--muted); margin: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>SkyWatchNEO</h1>
+    <p class="sub">Support &amp; frequently asked questions</p>
+  </header>
+
+  <p style="margin-top:32px">SkyWatchNEO shows near-Earth asteroid flybys for the week ahead, using
+  public tracking data published by NASA. You can browse each day's close approaches, save objects
+  to a watchlist, and get a daily notification summarizing what's passing by.</p>
+
+  <div class="card">
+    <strong>Need help?</strong>
+    <div class="contact">
+      <span>Email: <a href="mailto:austinzurbuchen@gmail.com">austinzurbuchen@gmail.com</a></span>
+      <span>Issues: <a href="https://github.com/AustinZurbuchen/sky-watch/issues">GitHub</a></span>
+    </div>
+    <p style="margin:12px 0 0; color:var(--muted); font-size:0.92rem">I read every message and
+    usually reply within a few days.</p>
+  </div>
+
+  <h2>Frequently asked questions</h2>
+
+  <h3>Where does the data come from?</h3>
+  <p>All flyby data comes from NASA's Near Earth Object Web Service (NeoWs), which is maintained by
+  the Center for Near-Earth Object Studies at NASA's Jet Propulsion Laboratory. You can browse the
+  same data at <a href="https://cneos.jpl.nasa.gov">cneos.jpl.nasa.gov</a>. SkyWatchNEO is an
+  independent app and is not affiliated with, endorsed by, or sponsored by NASA or JPL.</p>
+
+  <h3>What does "potentially hazardous" mean?</h3>
+  <p>A potentially hazardous asteroid (PHA) is one that comes within 0.05 AU (about 7.5 million km)
+  of Earth's orbit and is larger than about 140 meters across. This classification does not mean an
+  impact is expected or imminent — it means the object is large enough and close enough that
+  scientists monitor it carefully. Objects flagged in the app are being tracked, not predicted to
+  hit anything.</p>
+
+  <h3>What is a Lunar Distance (LD)?</h3>
+  <p>One Lunar Distance is the average gap between Earth and the Moon, about 384,400 km. SkyWatchNEO
+  shows miss distances in LD by default because it gives a more intuitive sense of scale than raw
+  kilometers. A flyby at 1 LD is very close in astronomical terms but still enormously far away.
+  You can switch to kilometers in Settings.</p>
+
+  <h3>The app says I've hit a rate limit, or data won't load</h3>
+  <p>By default SkyWatchNEO uses NASA's shared demo API key, which is limited to a small number of
+  requests per hour across everyone using it. If you're seeing errors, get your own free key — it
+  takes about a minute, no payment required:</p>
+  <ul>
+    <li>Go to <a href="https://api.nasa.gov">api.nasa.gov</a> and fill in the short signup form</li>
+    <li>Your key arrives by email immediately</li>
+    <li>In SkyWatchNEO, open <strong>Settings → NASA API Key</strong> and paste it in</li>
+  </ul>
+  <p>The key is stored only on your device and is used solely to make requests to NASA's API.</p>
+
+  <h3>How do I turn on notifications?</h3>
+  <p>Open <strong>Settings</strong> and enable hazard notifications. iOS will ask for permission the
+  first time. Once enabled, you'll get one notification per day at 9:00 AM summarizing that day's
+  flybys and how many are classified as potentially hazardous. Tapping it opens that day in the app.</p>
+
+  <h3>I enabled notifications but nothing arrives</h3>
+  <p>Check that notifications are allowed for SkyWatchNEO in <code>iOS Settings → Notifications →
+  SkyWatchNEO</code>. Notifications are also skipped for days that have already passed, so if you enable
+  the setting late in the day the first one may not arrive until tomorrow morning. Low Power Mode
+  can delay the background refresh that keeps the schedule current.</p>
+
+  <h3>How does the watchlist work?</h3>
+  <p>Open any asteroid and save it. Saved objects appear on the Watchlist tab and stay there until
+  you remove them. The watchlist is stored on your device only — it isn't synced to an account or
+  backed up to a server, so it won't carry over to a new phone.</p>
+
+  <h3>How do I delete my data?</h3>
+  <p>Delete the app. Everything SkyWatchNEO stores — your settings, your watchlist, and your API key
+  if you entered one — lives on the device and is removed with it. There's no account to close and
+  no server-side copy.</p>
+
+  <div class="disclaimer">
+    <p>SkyWatchNEO is an educational app for general interest. It is not an emergency alerting tool
+    and should not be relied on for safety-critical decisions. For authoritative information about
+    near-Earth objects, consult <a href="https://cneos.jpl.nasa.gov">NASA CNEOS</a> directly.</p>
+  </div>
+
+  <footer>
+    <p><a href="privacy.html">Privacy Policy</a></p>
+    <p>SkyWatchNEO is an independent project and is not affiliated with NASA or the Jet Propulsion
+    Laboratory. Near-Earth object data courtesy of NASA/JPL-Caltech.</p>
+    <p>© 2026 Austin Zurbuchen</p>
+  </footer>
+
+</div>
+</body>
+</html>

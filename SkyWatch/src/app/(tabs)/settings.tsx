@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet } from 'react-native';
+import Constants from 'expo-constants';
 
 import { ScrollView } from '@/components/ui/scrollView';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,7 +8,6 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { ThemedView } from '@/components/theme/themedView';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { ThemedTitle } from '@/components/theme/themedTitle';
-import { useState } from 'react';
 import { SettingsSection } from '@/components/settings/settingsSection';
 import { SettingsRow } from '@/components/settings/settingsRow';
 import { ApiKeyInput, ChevronValue, Toggle, ValueLabel } from '@/components/settings/settingsComponents';
@@ -17,8 +17,6 @@ import { ThemedText } from '@/components/theme/themedText';
 import { useSelectedDateStore } from '@/store/selectedDateStore';
 
 export default function SettingsScreen() {
-  const [debugMode, setDebugMode] = useState(false);
-
   const {
     distanceUnit,
     daysInPast,
@@ -73,25 +71,20 @@ export default function SettingsScreen() {
               right={<Toggle value={hazardNotifications} onToggle={() => setHazardNotifications(!hazardNotifications)} />}
             />
           </SettingsSection>
-          <SettingsSection label="Developer">
-            <SettingsRow 
+          <SettingsSection label="Advanced">
+            <SettingsRow
               icon={<Ionicons name="key-outline" size={18} color="#4a9eff" />}
               title="NASA API Key"
-              subtitle="Leave blank to use default"
-              right={<ApiKeyInput value={apiKeyOverride} onChange={setApiKeyOverride} />} 
-            />
-            <SettingsRow 
-              icon={<Ionicons name="bug-outline" size={18} color="#4a9eff" />}
-              title="Debug mode"
+              subtitle="Optional. Use your own key if you hit rate limits."
               isLast
-              right={<Toggle value={debugMode} onToggle={() => setDebugMode(prev => !prev)} />} 
+              right={<ApiKeyInput value={apiKeyOverride} onChange={setApiKeyOverride} />}
             />
           </SettingsSection>
           <SettingsSection label="About">
             <SettingsRow 
               icon={<Ionicons name="information-circle-outline" size={18} color="#4a9eff" />}
               title="Version"
-              right={<ValueLabel value="1.0.0" />} 
+              right={<ValueLabel value={Constants.expoConfig?.version ?? '1.0.0'} />}
             />
             <SettingsRow 
               icon={<Ionicons name="rocket-outline" size={18} color="#4a9eff" />}

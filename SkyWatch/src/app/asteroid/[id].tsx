@@ -1,4 +1,4 @@
-import { ErrorState } from "@/components/feeback";
+import { ErrorState } from "@/components/feedback";
 import { ThemedText } from "@/components/theme/themedText";
 import { Colors } from "@/constants/theme";
 import { useAsteroidStore } from "@/store/asteroidStore";

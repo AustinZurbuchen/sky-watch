@@ -1,0 +1,5 @@
+# macOS
+.DS_Store
+
+# Pre-flatten copies of App Store screenshots — regenerable, not worth versioning
+screenshots/_originals-with-alpha/

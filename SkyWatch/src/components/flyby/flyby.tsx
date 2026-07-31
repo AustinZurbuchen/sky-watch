@@ -5,7 +5,7 @@ import { ThemedText } from "../theme/themedText"
 import { AsteroidFlyby } from "@/types"
 import { AsteroidCard } from "../asteroid/AsteroidCard";
 import { useAsteroids } from "@/hooks/useAsteroids";
-import { LoadingState, ErrorState } from "../feeback";
+import { LoadingState, ErrorState } from "@/components/feedback";
 import { useAsteroidStore } from "@/store/asteroidStore";
 import { useSelectedDateStore } from "@/store/selectedDateStore";
 
@@ -20,19 +20,19 @@ export const FlyBy = () => {
   const asteroidsByDate = useAsteroidStore((state) => state.asteroidsByDate);
   const todaysFlybys = asteroidsByDate.find((group) => group.date === selectedDate)?.asteroids ?? [];
 
-  if (isLoading) return <LoadingState />
-  if (isError) return <ErrorState onRetry={refetch} />
-
   const handleCardPress = useCallback((asteroid: AsteroidFlyby) => {
     router.push(`/asteroid/${asteroid.id}`);
   }, []);
-  
+
   const renderItem: ListRenderItem<AsteroidFlyby> = useCallback(({ item }) => (
-    <AsteroidCard 
+    <AsteroidCard
       asteroid={item}
       onPress={() => handleCardPress(item)}
     />
   ), [handleCardPress]);
+
+  if (isLoading) return <LoadingState />
+  if (isError) return <ErrorState onRetry={refetch} />
 
   const getItemLayout = (_: ArrayLike<AsteroidFlyby> | null | undefined, index: number ) => ({
     length: ITEM_HEIGHT + ITEM_SEPARATOR,

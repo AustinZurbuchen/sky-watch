@@ -8,12 +8,10 @@ import {
   requestNotificationPermission,
 } from '@/utils/notifications';
 
-export const ASTEROID_BACKGROUND_TASK = 'ASTEROID_BACKGROUND_TAST';
+export const ASTEROID_BACKGROUND_TASK = 'ASTEROID_BACKGROUND_TASK';
 
 const getWeekDates = () => {
-  const {
-    daysInPast,
-  } = useSettingsStore()
+  const { daysInPast } = useSettingsStore.getState();
   const start = new Date();
   start.setDate(start.getDate() - daysInPast);
   const end = new Date(start);
@@ -26,7 +24,13 @@ const getWeekDates = () => {
 
 TaskManager.defineTask(ASTEROID_BACKGROUND_TASK, async () => {
   try {
-    const { hazardNotifications, apiKeyOverride } = useSettingsStore.getState();
+    // The task wakes into a fresh JS context, where `persist` rehydrates from
+    // AsyncStorage asynchronously. Reading the store before that finishes yields the
+    // defaults — hazardNotifications: false — and the task would return below having
+    // done nothing, so notifications would never fire. Force the read to complete.
+    await useSettingsStore.persist.rehydrate();
+
+    const { hazardNotifications } = useSettingsStore.getState();
 
     if (!hazardNotifications) {
       return BackgroundTask.BackgroundTaskResult.Success;
