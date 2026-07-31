@@ -123,21 +123,22 @@ keys: [ '2026-08-06', '2026-08-03', '2026-08-04', '2026-08-05' ]
 ```
 
 `mapper.ts` uses those keys verbatim as `AsteroidsByDate.date` and `AsteroidFlyby.date`, so
-**everything in the store is padded**. Any key you build for a `.find()` must be padded too:
-`format(date, 'yyyy-MM-dd')`, or `toISOString().split('T')[0]`.
+**everything in the store is padded**.
 
-⚠️ **Open bug (B1).** `date-fns` `'yyyy-MM-d'` does *not* pad the day — it yields `2026-08-5`.
-Three sites still use it and their lookups miss on days 1–9 of every month:
+**Never spell the format inline.** Build every key with `toDateKey()` from `@/utils/utils`, which
+goes through the one `DATE_KEY_FORMAT = 'yyyy-MM-dd'` constant in `@/constants/constants`.
 
-| Site | Effect on days 1–9 |
-|---|---|
-| `src/utils/utils.ts:15` (`getDays`) | week-strip hazard dots always `false` |
-| `src/components/week/weekStrip.tsx:21-22` | `selectedDate` never matches → **flyby list empty** |
-| `src/app/(tabs)/index.tsx:35` (`getTodaysCount`) | "Today" stat reads `0` |
+This is not stylistic. `date-fns` `'d'` does not pad, so `'yyyy-MM-d'` yields `2026-08-5`, and three
+sites once spelled it that way — every lookup missed on days 1–9 of a month, leaving the flyby list
+empty, hazard dots `false`, and the Today stat at `0`. It was invisible for most of any given month.
+The root cause was three spellings of one concept, so the constant is the actual fix; keep it that
+way.
 
-`settings.tsx:36` and `testNotifications.ts:17` use `toISOString().split('T')[0]` and are correct.
-The fix is a single shared `DATE_KEY_FORMAT = 'yyyy-MM-dd'` constant — three spellings of one concept
-is what caused this. Tracked as B1 in the 2026-07-31 audit (`audits/`, gitignored).
+**The feed window is the same story.** `getFeedWindow(daysInPast)` in `@/utils/utils` is the single
+source for the 8-day range and is shared by `useAsteroids` and `asteroidBackgroundTask`. It formats
+in **local** time deliberately — `toISOString()` resolves to UTC and lands on a different calendar
+day for anyone west of Greenwich in the evening, which made the strip show a day the feed was never
+asked for.
 
 ## Checklist
 
