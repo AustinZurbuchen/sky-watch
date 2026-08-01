@@ -95,6 +95,11 @@ produce an unreadable app, and a brand color change is a 45-site find-and-replac
 `cardBorder`, `badgeSafeBg`, `badgeHazardBg` to **both** palettes, then convert one component folder
 per commit — as its own change, not smuggled into a feature commit.
 
+**Do it together with backlog item 1** ([BACKLOG.md](../BACKLOG.md)): the card fill is only 1.08:1
+against the background and is due to be lightened. Converting a component to tokens means touching
+those exact colours, so pick the new values then rather than tokenising the current, too-dark ones
+and editing every call site twice. That item carries the measured ratios and a candidate ladder.
+
 `app.json` repeats `#0a0d1a` for the splash background and Android adaptive-icon background. Those
 can't reference `theme.ts` (they're build-time config). If `Colors.dark.background` changes, change
 them too, and rebuild — config changes don't hot-reload.
