@@ -100,6 +100,13 @@ loops in JSX. See [state-agent](state-agent.md).
 Loading and error states use `src/components/feedback/`; empty states are per-feature
 (`watchlist/emptyState.tsx`).
 
+## Settings controls
+
+`ChevronValue` (`components/settings/settingsComponents.tsx`) cycles to the next value on tap while
+showing a `>` chevron, which implies a drill-in screen that doesn't exist. Backlog item 2
+([BACKLOG.md](../BACKLOG.md)) replaces it with a real picker. If you're adding a setting before that
+lands, don't extend the cycling pattern to a third option — it stops being discoverable at all.
+
 ## Platform splits
 
 A `.web.tsx` sibling overrides the native file on web — Metro picks it by extension. Existing splits:

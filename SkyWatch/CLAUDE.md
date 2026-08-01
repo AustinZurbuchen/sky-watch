@@ -32,6 +32,9 @@ summary, the agent file is the detail. Any change to one requires the matching c
 in the same commit — including adding a row above when you add an agent file. Each agent file ends
 with a **Sync** section naming what it mirrors here. See [agents/README.md](agents/README.md).
 
+Work parked for a future release lives in [BACKLOG.md](BACKLOG.md) — read it before starting
+anything in theming or Settings, since two items there want to be done alongside related work.
+
 ## Commands
 
 ```bash
